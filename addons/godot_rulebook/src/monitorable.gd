@@ -5,7 +5,7 @@ extends Node
 signal deleted(emitter: Monitorable)
 
 @export var holder: Node
-var rulebook_name: String = ""
+@export var rulebook_name: String = ""
 
 
 func _ready() -> void:
@@ -13,11 +13,10 @@ func _ready() -> void:
 		# Create signals for each monitorable property (used to monitor changes to attribute values).
 		var properties: Array[Dictionary] = get_property_list()
 		for property in properties:
-			add_user_signal(property.name + "_signal", [{ "name": "source", "type": TYPE_OBJECT }])
+			add_user_signal(property.name + "_changed", [{ "name": "source", "type": TYPE_OBJECT }])
 		
-		# Tells Rulebook about this object creation. The signals will be connected internally.
-		var rulebook = RulebooksManager.get_rulebook(rulebook_name)
-		rulebook.add_monitorable_instance(self)
+		# Tells a rulebook about this object creation. The signals will be connected internally.
+		RulebooksManager.get_rulebook(rulebook_name).add_monitorable_instance(self)
 
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -36,17 +35,16 @@ func _get_property_list() -> Array[Dictionary]:
 	return [{
 		name = "rulebook_name",
 		type = TYPE_STRING,
-		usage = PROPERTY_USAGE_DEFAULT,
 		hint = PROPERTY_HINT_ENUM,
 		hint_string = get_rulebooks_hint()
 	}]
 
 
 func get_rulebooks_hint() -> String:
-	var rulebooks: Array[Rulebook] = RulebooksManager.get_rulebooks()
+	var rulebooks: Array[Rulebook] = RulebooksManager.get_all_rulebooks()
 	var hints := ""
 	for rulebook in rulebooks:
-		hints += rulebook.rulebook_name + ","
+		hints += rulebook.name + ","
 	return hints
 
 
