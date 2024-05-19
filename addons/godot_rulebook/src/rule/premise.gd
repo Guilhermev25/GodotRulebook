@@ -11,6 +11,11 @@ var expression_string: String
 var expression = Expression.new()
 
 
+func check_validity() -> bool:
+	# TODO: Check whether the premise attributes are valid
+	return true
+
+
 func parse_expression() -> void:
 	match operand_type:
 		OperandType.CONSTANT:
@@ -28,12 +33,13 @@ func connect_instance(instance: Monitorable) -> void:
 	instance.connect(attribute + "_changed", _property_changed)
 	if operand_type == OperandType.ATTRIBUTE:
 		instance.connect(operand + "_changed", _property_changed)
-	_property_changed(instance)
+	_add_instance(instance)
 	instance.connect("deleted", _instance_deleted)
 
 
 func get_hash() -> void:
 	var hash_string := "type: %s %s" % [type, expression_string]
+	# NOTE: Remove hash() to avoid collisions?
 	return hash_string.hash()
 
 # ABSTRACT FUNCTION
@@ -41,5 +47,11 @@ func _property_changed(instance: Monitorable) -> void:
 	push_error("NOT IMPLEMENTED ERROR: Premise._property_changed()")
 
 # ABSTRACT FUNCTION
+func _add_instance(instance: Monitorable) -> void:
+	push_error("NOT IMPLEMENTED ERROR: Premise._add_instance()")
+
+# ABSTRACT FUNCTION
 func _instance_deleted(instance: Monitorable) -> void:
 	push_error("NOT IMPLEMENTED ERROR: Premise._instance_deleted()")
+
+

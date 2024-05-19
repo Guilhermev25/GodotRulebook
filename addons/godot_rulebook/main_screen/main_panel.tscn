@@ -1,9 +1,59 @@
-[gd_scene format=3 uid="uid://ed2pq3t5d0ps"]
+[gd_scene load_steps=5 format=3 uid="uid://ed2pq3t5d0ps"]
 
-[node name="MainPanel" type="Control"]
-layout_mode = 3
+[ext_resource type="PackedScene" uid="uid://vwxwcpwamyof" path="res://addons/godot_rulebook/main_screen/components/rulebook_tab.tscn" id="1_b85ce"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1wiaa"]
+bg_color = Color(0.218411, 0.221032, 0.236809, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_j8ebi"]
+line_spacing = 0.0
+font_size = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lgyo8"]
+bg_color = Color(0.289397, 0.294016, 0.312482, 1)
+
+[node name="MainPanel" type="PanelContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1wiaa")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "GodotRulebook"
+label_settings = SubResource("LabelSettings_j8ebi")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="TabMargin" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer/TabMargin"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_lgyo8")
+tab_alignment = 1
+current_tab = 0
+drag_to_rearrange_enabled = true
+
+[node name="Rulebook A" parent="VBoxContainer/TabMargin/TabContainer" instance=ExtResource("1_b85ce")]
+layout_mode = 2
+
+[node name="Rulebook B" parent="VBoxContainer/TabMargin/TabContainer" instance=ExtResource("1_b85ce")]
+visible = false
+layout_mode = 2
+
+[node name="+ Rulebook" type="Control" parent="VBoxContainer/TabMargin/TabContainer"]
+visible = false
+layout_mode = 2

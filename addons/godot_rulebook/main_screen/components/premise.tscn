@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://dui17054qnnx3"]
+
+[node name="Premise" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 309.0
+offset_bottom = -308.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+
+[node name="Attribute" type="Label" parent="."]
+layout_mode = 2
+text = "Attribute"
+
+[node name="AttributeOption" type="OptionButton" parent="."]
+layout_mode = 2
+
+[node name="OperatorOption" type="OptionButton" parent="."]
+layout_mode = 2
+
+[node name="ConstantField" type="LineEdit" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="AttributeField" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="Attribute" type="Label" parent="AttributeField"]
+layout_mode = 2
+text = "Attribute"
+
+[node name="AttributeOption" type="OptionButton" parent="AttributeField"]
+layout_mode = 2
+
+[node name="VariableField" type="LineEdit" parent="."]
+auto_translate_mode = 1
+visible = false
+layout_mode = 2
+placeholder_text = " variable name "
+alignment = 1
+expand_to_text_length = true
+
+[node name="OperandTypeOptions" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="Constant" type="CheckBox" parent="OperandTypeOptions"]
+layout_mode = 2
+text = "Constant"
+
+[node name="Attribute" type="CheckBox" parent="OperandTypeOptions"]
+auto_translate_mode = 1
+layout_mode = 2
+text = "Attribute"
+
+[node name="Variable" type="CheckBox" parent="OperandTypeOptions"]
+auto_translate_mode = 1
+layout_mode = 2
+text = "Variable"

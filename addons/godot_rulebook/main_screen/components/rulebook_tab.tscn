@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=3 uid="uid://vwxwcpwamyof"]
+
+[ext_resource type="PackedScene" uid="uid://b5fvkpama31uo" path="res://addons/godot_rulebook/main_screen/components/foldable_rule.tscn" id="1_wbah8"]
+
+[node name="Panel" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RulebookTab" type="ScrollContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RulebookTab"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NameMargin" type="MarginContainer" parent="RulebookTab/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="RulebookName" type="LineEdit" parent="RulebookTab/VBoxContainer/NameMargin"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+placeholder_text = "RulebookName"
+flat = true
+
+[node name="Delete" type="Button" parent="RulebookTab/VBoxContainer/NameMargin"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+text = "x"
+
+[node name="RulesListMargin" type="MarginContainer" parent="RulebookTab/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="RulesList" type="VBoxContainer" parent="RulebookTab/VBoxContainer/RulesListMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
+[node name="Rule" parent="RulebookTab/VBoxContainer/RulesListMargin/RulesList" instance=ExtResource("1_wbah8")]
+layout_mode = 2
+
+[node name="AddRule" type="Button" parent="RulebookTab/VBoxContainer/RulesListMargin/RulesList"]
+layout_mode = 2
+text = " + Rule"
+alignment = 0

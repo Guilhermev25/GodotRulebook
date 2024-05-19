@@ -1,0 +1,53 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcu3ebetniqjy"]
+
+[ext_resource type="PackedScene" uid="uid://dui17054qnnx3" path="res://addons/godot_rulebook/main_screen/components/premise.tscn" id="1_8821n"]
+
+[node name="VBoxContainer" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MonitorablePremises" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="MonitorableType" type="OptionButton" parent="MonitorablePremises"]
+layout_mode = 2
+
+[node name="MonitorableId" type="LineEdit" parent="MonitorablePremises"]
+layout_mode = 2
+alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MonitorablePremises"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Delete" type="Button" parent="MonitorablePremises"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "x"
+
+[node name="PremisesListMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="PremisesList" type="VBoxContainer" parent="PremisesListMargin"]
+layout_mode = 2
+
+[node name="Premise" parent="PremisesListMargin/PremisesList" instance=ExtResource("1_8821n")]
+layout_mode = 2
+
+[node name="Premise2" parent="PremisesListMargin/PremisesList" instance=ExtResource("1_8821n")]
+auto_translate_mode = 1
+layout_mode = 2
+
+[node name="AddPremise" type="Button" parent="PremisesListMargin/PremisesList"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+text = "+ Premise"
+
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2
