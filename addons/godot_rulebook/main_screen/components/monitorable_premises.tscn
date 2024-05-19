@@ -14,6 +14,7 @@ layout_mode = 2
 
 [node name="MonitorableType" type="OptionButton" parent="MonitorablePremises"]
 layout_mode = 2
+allow_reselect = true
 
 [node name="MonitorableId" type="LineEdit" parent="MonitorablePremises"]
 layout_mode = 2
@@ -29,21 +30,21 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "x"
 
-[node name="PremisesListMargin" type="MarginContainer" parent="."]
+[node name="PremisesMargin" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 
-[node name="PremisesList" type="VBoxContainer" parent="PremisesListMargin"]
+[node name="Premises" type="VBoxContainer" parent="PremisesMargin"]
 layout_mode = 2
 
-[node name="Premise" parent="PremisesListMargin/PremisesList" instance=ExtResource("1_8821n")]
+[node name="Premise" parent="PremisesMargin/Premises" instance=ExtResource("1_8821n")]
 layout_mode = 2
 
-[node name="Premise2" parent="PremisesListMargin/PremisesList" instance=ExtResource("1_8821n")]
+[node name="Premise2" parent="PremisesMargin/Premises" instance=ExtResource("1_8821n")]
 auto_translate_mode = 1
 layout_mode = 2
 
-[node name="AddPremise" type="Button" parent="PremisesListMargin/PremisesList"]
+[node name="AddPremise" type="Button" parent="PremisesMargin/Premises"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4

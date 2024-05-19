@@ -16,9 +16,11 @@ text = "Attribute"
 
 [node name="AttributeOption" type="OptionButton" parent="."]
 layout_mode = 2
+allow_reselect = true
 
 [node name="OperatorOption" type="OptionButton" parent="."]
 layout_mode = 2
+allow_reselect = true
 
 [node name="ConstantField" type="LineEdit" parent="."]
 visible = false
@@ -46,17 +48,24 @@ expand_to_text_length = true
 [node name="OperandTypeOptions" type="HBoxContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 10
+theme_override_constants/separation = 20
 
 [node name="Constant" type="CheckBox" parent="OperandTypeOptions"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Constant"
+flat = true
 
 [node name="Attribute" type="CheckBox" parent="OperandTypeOptions"]
 auto_translate_mode = 1
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Attribute"
+flat = true
 
 [node name="Variable" type="CheckBox" parent="OperandTypeOptions"]
 auto_translate_mode = 1
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Variable"
+flat = true

@@ -1,16 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://ed2pq3t5d0ps"]
+[gd_scene load_steps=6 format=3 uid="uid://ed2pq3t5d0ps"]
 
 [ext_resource type="PackedScene" uid="uid://vwxwcpwamyof" path="res://addons/godot_rulebook/main_screen/components/rulebook_tab.tscn" id="1_b85ce"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1wiaa"]
-bg_color = Color(0.218411, 0.221032, 0.236809, 1)
+[ext_resource type="Theme" uid="uid://cvvfj8ffpw3np" path="res://addons/godot_rulebook/main_screen/theme/theme.tres" id="1_rvap4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_j8ebi"]
 line_spacing = 0.0
 font_size = 32
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uh286"]
+bg_color = Color(0.164706, 0.168627, 0.180392, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lgyo8"]
-bg_color = Color(0.289397, 0.294016, 0.312482, 1)
+bg_color = Color(0.141176, 0.145098, 0.152941, 1)
 
 [node name="MainPanel" type="PanelContainer"]
 anchors_preset = 15
@@ -18,7 +19,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_1wiaa")
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_rvap4")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -42,8 +45,8 @@ theme_override_constants/margin_bottom = 40
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer/TabMargin"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_styles/tabbar_background = SubResource("StyleBoxFlat_uh286")
 theme_override_styles/panel = SubResource("StyleBoxFlat_lgyo8")
-tab_alignment = 1
 current_tab = 0
 drag_to_rearrange_enabled = true
 

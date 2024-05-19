@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://b5fvkpama31uo"]
+[gd_scene load_steps=4 format=3 uid="uid://b5fvkpama31uo"]
 
 [ext_resource type="PackedScene" uid="uid://bcu3ebetniqjy" path="res://addons/godot_rulebook/main_screen/components/monitorable_premises.tscn" id="1_8n7fn"]
+[ext_resource type="Texture2D" uid="uid://fdiqucphdxpf" path="res://addons/godot_rulebook/main_screen/theme/fold_down_arrow.svg" id="1_fvjg4"]
+[ext_resource type="Texture2D" uid="uid://d2bgfnbm5a34m" path="res://addons/godot_rulebook/main_screen/theme/folded_right_arrow.svg" id="2_m5an4"]
 
 [node name="FoldableRule" type="PanelContainer"]
 anchors_preset = 14
@@ -20,7 +22,12 @@ layout_mode = 2
 
 [node name="FoldButton" type="CheckBox" parent="VBoxContainer/Title"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 15.0
+theme_override_icons/checked = ExtResource("1_fvjg4")
+theme_override_icons/unchecked = ExtResource("2_m5an4")
 text = "RULE"
+flat = true
 
 [node name="DeleteMargin" type="MarginContainer" parent="VBoxContainer/Title"]
 layout_mode = 2
@@ -48,32 +55,32 @@ layout_mode = 2
 layout_mode = 2
 text = "IF:"
 
-[node name="MonitorableListMargin" type="MarginContainer" parent="VBoxContainer/ContentsMargin/Contents"]
+[node name="MonitorablesMargin" type="MarginContainer" parent="VBoxContainer/ContentsMargin/Contents"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 20
 
-[node name="MonitorableList" type="VBoxContainer" parent="VBoxContainer/ContentsMargin/Contents/MonitorableListMargin"]
+[node name="Monitorables" type="VBoxContainer" parent="VBoxContainer/ContentsMargin/Contents/MonitorablesMargin"]
 layout_mode = 2
 
-[node name="MonitorableScope" parent="VBoxContainer/ContentsMargin/Contents/MonitorableListMargin/MonitorableList" instance=ExtResource("1_8n7fn")]
+[node name="MonitorableScope" parent="VBoxContainer/ContentsMargin/Contents/MonitorablesMargin/Monitorables" instance=ExtResource("1_8n7fn")]
 layout_mode = 2
 
-[node name="MonitorableScope2" parent="VBoxContainer/ContentsMargin/Contents/MonitorableListMargin/MonitorableList" instance=ExtResource("1_8n7fn")]
+[node name="MonitorableScope2" parent="VBoxContainer/ContentsMargin/Contents/MonitorablesMargin/Monitorables" instance=ExtResource("1_8n7fn")]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentsMargin/Contents/MonitorableListMargin/MonitorableList"]
+[node name="AddMonitorableSection" type="VBoxContainer" parent="VBoxContainer/ContentsMargin/Contents/MonitorablesMargin/Monitorables"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ContentsMargin/Contents/MonitorableListMargin/MonitorableList/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ContentsMargin/Contents/MonitorablesMargin/Monitorables/AddMonitorableSection"]
 layout_mode = 2
 
-[node name="AddMonitorable" type="Button" parent="VBoxContainer/ContentsMargin/Contents/MonitorableListMargin/MonitorableList/VBoxContainer/HBoxContainer"]
+[node name="AddMonitorable" type="Button" parent="VBoxContainer/ContentsMargin/Contents/MonitorablesMargin/Monitorables/AddMonitorableSection/HBoxContainer"]
 layout_mode = 2
 text = "+ Monitorable"
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/ContentsMargin/Contents/MonitorableListMargin/MonitorableList/VBoxContainer/HBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/ContentsMargin/Contents/MonitorablesMargin/Monitorables/AddMonitorableSection/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 

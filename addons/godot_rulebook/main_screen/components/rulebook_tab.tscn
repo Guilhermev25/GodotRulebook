@@ -37,20 +37,20 @@ size_flags_horizontal = 8
 size_flags_vertical = 4
 text = "x"
 
-[node name="RulesListMargin" type="MarginContainer" parent="RulebookTab/VBoxContainer"]
+[node name="RulesMargin" type="MarginContainer" parent="RulebookTab/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_right = 20
 
-[node name="RulesList" type="VBoxContainer" parent="RulebookTab/VBoxContainer/RulesListMargin"]
+[node name="Rules" type="VBoxContainer" parent="RulebookTab/VBoxContainer/RulesMargin"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 15
 
-[node name="Rule" parent="RulebookTab/VBoxContainer/RulesListMargin/RulesList" instance=ExtResource("1_wbah8")]
+[node name="Rule" parent="RulebookTab/VBoxContainer/RulesMargin/Rules" instance=ExtResource("1_wbah8")]
 layout_mode = 2
 
-[node name="AddRule" type="Button" parent="RulebookTab/VBoxContainer/RulesListMargin/RulesList"]
+[node name="AddRule" type="Button" parent="RulebookTab/VBoxContainer/RulesMargin/Rules"]
 layout_mode = 2
 text = " + Rule"
 alignment = 0
