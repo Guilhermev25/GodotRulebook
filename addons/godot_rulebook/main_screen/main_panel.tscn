@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://ed2pq3t5d0ps"]
 
-[ext_resource type="PackedScene" uid="uid://vwxwcpwamyof" path="res://addons/godot_rulebook/main_screen/components/rulebook_tab.tscn" id="1_b85ce"]
 [ext_resource type="Theme" uid="uid://cvvfj8ffpw3np" path="res://addons/godot_rulebook/main_screen/theme/theme.tres" id="1_rvap4"]
+[ext_resource type="Script" path="res://addons/godot_rulebook/main_screen/main_panel.gd" id="2_iu0bq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_j8ebi"]
 line_spacing = 0.0
@@ -22,6 +22,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_rvap4")
+script = ExtResource("2_iu0bq")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -43,6 +44,7 @@ theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer/TabMargin"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/tabbar_background = SubResource("StyleBoxFlat_uh286")
@@ -50,13 +52,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_lgyo8")
 current_tab = 0
 drag_to_rearrange_enabled = true
 
-[node name="Rulebook A" parent="VBoxContainer/TabMargin/TabContainer" instance=ExtResource("1_b85ce")]
-layout_mode = 2
-
-[node name="Rulebook B" parent="VBoxContainer/TabMargin/TabContainer" instance=ExtResource("1_b85ce")]
-visible = false
-layout_mode = 2
-
 [node name="+ Rulebook" type="Control" parent="VBoxContainer/TabMargin/TabContainer"]
-visible = false
+unique_name_in_owner = true
 layout_mode = 2
+
+[connection signal="tab_clicked" from="VBoxContainer/TabMargin/TabContainer" to="." method="_on_tab_container_tab_clicked"]
