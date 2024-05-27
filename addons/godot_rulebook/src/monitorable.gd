@@ -5,7 +5,7 @@ extends Node
 signal deleted(emitter: Monitorable)
 
 @export var holder: Node
-@export var rulebook_name: String = ""
+var rulebook: String = ""
 
 
 func _ready() -> void:
@@ -16,7 +16,7 @@ func _ready() -> void:
 			add_user_signal(property.name + "_changed", [{ "name": "source", "type": TYPE_OBJECT }])
 		
 		# Tells a rulebook about this object creation. The signals will be connected internally.
-		RulebooksManager.get_rulebook(rulebook_name).add_monitorable_instance(self)
+		RulebooksManager.get_rulebook(rulebook).add_monitorable_instance(self)
 
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -25,7 +25,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 	if not holder:
 		warnings.append("Please set `Holder` to a non-empty value.")
 		
-	if rulebook_name == "":
+	if rulebook == "":
 		warnings.append("Please set `Rulebook Name` to a non-empty value.")
 	
 	return warnings
@@ -33,7 +33,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 func _get_property_list() -> Array[Dictionary]:
 	return [{
-		name = "rulebook_name",
+		name = "rulebook",
 		type = TYPE_STRING,
 		hint = PROPERTY_HINT_ENUM,
 		hint_string = get_rulebooks_hint()

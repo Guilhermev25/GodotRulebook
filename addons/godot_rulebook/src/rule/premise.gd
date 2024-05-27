@@ -2,11 +2,12 @@ class_name RulePremise
 extends Resource
 
 enum OperandType { CONSTANT, ATTRIBUTE, VARIABLE }
-@export var type: String
-@export var attribute: String
-@export_enum("==", "!=", ">", ">=", "<", "<=") var operator: String
-@export var operand_type: OperandType
-@export var operand: String
+const OPERATOR_HINTS = ["==", "!=", ">", ">=", "<", "<="]
+var type: String
+var attribute: String
+var operator: String
+var operand_type: OperandType
+var operand: String
 var expression_string: String
 var expression = Expression.new()
 
@@ -41,6 +42,7 @@ func get_hash() -> void:
 	var hash_string := "type: %s %s" % [type, expression_string]
 	# NOTE: Remove hash() to avoid collisions?
 	return hash_string.hash()
+
 
 # ABSTRACT FUNCTION
 func _property_changed(instance: Monitorable) -> void:
