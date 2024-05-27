@@ -1,7 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://ed2pq3t5d0ps"]
+[gd_scene load_steps=8 format=3 uid="uid://ed2pq3t5d0ps"]
 
-[ext_resource type="Theme" uid="uid://cvvfj8ffpw3np" path="res://addons/godot_rulebook/main_screen/theme.tres" id="1_rvap4"]
-[ext_resource type="Script" path="res://addons/godot_rulebook/main_screen/main_panel.gd" id="2_iu0bq"]
+[ext_resource type="Theme" uid="uid://cvvfj8ffpw3np" path="res://addons/godot_rulebook/editor/theme.tres" id="1_rvap4"]
+[ext_resource type="Script" path="res://addons/godot_rulebook/editor/main_panel.gd" id="2_iu0bq"]
+[ext_resource type="Texture2D" uid="uid://b24hd8gsegbnn" path="res://addons/godot_rulebook/editor/assets/icons/make_floating.svg" id="3_jw5o7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nonq1"]
+bg_color = Color(0.164706, 0.168627, 0.180392, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_j8ebi"]
 line_spacing = 0.0
@@ -22,11 +26,19 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_rvap4")
+theme_override_styles/panel = SubResource("StyleBoxFlat_nonq1")
 script = ExtResource("2_iu0bq")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 theme_override_constants/separation = 10
+
+[node name="MakeFloating" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+icon = ExtResource("3_jw5o7")
+flat = true
 
 [node name="Title" type="Label" parent="VBoxContainer"]
 layout_mode = 2
@@ -56,4 +68,5 @@ drag_to_rearrange_enabled = true
 unique_name_in_owner = true
 layout_mode = 2
 
+[connection signal="pressed" from="VBoxContainer/MakeFloating" to="." method="_on_make_floating_pressed"]
 [connection signal="tab_clicked" from="VBoxContainer/TabMargin/TabContainer" to="." method="_on_tab_container_tab_clicked"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://j1jqtw7mp57u"
-path="res://.godot/imported/remove.svg-61f9efe485f972fb3c4cfa4a9b0e5be8.ctex"
+uid="uid://d2bgfnbm5a34m"
+path="res://.godot/imported/folded_right_arrow.svg-97cb816f2e8d3c6225abdd0a31c602b4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/godot_rulebook/main_screen/assets/icons/remove.svg"
-dest_files=["res://.godot/imported/remove.svg-61f9efe485f972fb3c4cfa4a9b0e5be8.ctex"]
+source_file="res://addons/godot_rulebook/editor/assets/icons/folded_right_arrow.svg"
+dest_files=["res://.godot/imported/folded_right_arrow.svg-97cb816f2e8d3c6225abdd0a31c602b4.ctex"]
 
 [params]
 

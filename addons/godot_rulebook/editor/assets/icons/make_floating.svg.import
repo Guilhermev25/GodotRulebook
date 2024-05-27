@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fdiqucphdxpf"
-path="res://.godot/imported/fold_down_arrow.svg-b029b4f9890cb4a550ab298feb0c7d92.ctex"
+uid="uid://b24hd8gsegbnn"
+path="res://.godot/imported/make_floating.svg-61c759a8dadcf6c72e8269d0cb1a04e4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/godot_rulebook/main_screen/assets/icons/fold_down_arrow.svg"
-dest_files=["res://.godot/imported/fold_down_arrow.svg-b029b4f9890cb4a550ab298feb0c7d92.ctex"]
+source_file="res://addons/godot_rulebook/editor/assets/icons/make_floating.svg"
+dest_files=["res://.godot/imported/make_floating.svg-61c759a8dadcf6c72e8269d0cb1a04e4.ctex"]
 
 [params]
 

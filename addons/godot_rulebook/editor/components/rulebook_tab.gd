@@ -1,7 +1,7 @@
 @tool
 extends PanelContainer
 
-const FOLDABLE_RULE := preload("res://addons/godot_rulebook/main_screen/components/foldable_rule.tscn")
+const FOLDABLE_RULE := preload("res://addons/godot_rulebook/editor/components/foldable_rule.tscn")
 
 
 func _on_rulebook_name_text_changed(new_text: String):

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://vwxwcpwamyof"]
 
-[ext_resource type="Script" path="res://addons/godot_rulebook/main_screen/components/rulebook_tab.gd" id="1_dl8sj"]
-[ext_resource type="Texture2D" uid="uid://j1jqtw7mp57u" path="res://addons/godot_rulebook/main_screen/assets/icons/remove.svg" id="2_ov31x"]
+[ext_resource type="Script" path="res://addons/godot_rulebook/editor/components/rulebook_tab.gd" id="1_dl8sj"]
+[ext_resource type="Texture2D" uid="uid://j1jqtw7mp57u" path="res://addons/godot_rulebook/editor/assets/icons/remove.svg" id="2_ov31x"]
 
 [node name="RulebookTab" type="PanelContainer"]
 anchors_preset = 15

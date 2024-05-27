@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bcu3ebetniqjy"]
 
-[ext_resource type="Texture2D" uid="uid://j1jqtw7mp57u" path="res://addons/godot_rulebook/main_screen/assets/icons/remove.svg" id="1_a6h74"]
-[ext_resource type="Script" path="res://addons/godot_rulebook/main_screen/components/monitorable_premises.gd" id="1_hfv23"]
+[ext_resource type="Texture2D" uid="uid://j1jqtw7mp57u" path="res://addons/godot_rulebook/editor/assets/icons/remove.svg" id="1_a6h74"]
+[ext_resource type="Script" path="res://addons/godot_rulebook/editor/components/monitorable_premises.gd" id="1_hfv23"]
 
 [node name="MonitorablePremises" type="VBoxContainer"]
 anchors_preset = 14

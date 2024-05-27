@@ -1,10 +1,10 @@
 @tool
 extends PanelContainer
 
-const RULEBOOK_TAB := preload("res://addons/godot_rulebook/main_screen/components/rulebook_tab.tscn")
+signal make_floating
+const RULEBOOK_TAB := preload("res://addons/godot_rulebook/editor/components/rulebook_tab.tscn")
 var suffix: int = 1
 
-@export var resource: Resource
 
 func get_rulebooks() -> Array[Control]:
 	var result: Array[Control]
@@ -29,3 +29,12 @@ func create_rulebook() -> void:
 func _on_tab_container_tab_clicked(tab: int):
 	if tab == %TabContainer.get_tab_idx_from_control(%"+ Rulebook"):
 		create_rulebook()
+
+
+func _on_make_floating_pressed():
+	%MakeFloating.visible = false
+	make_floating.emit()
+
+
+func undo_floating_panel():
+	%MakeFloating.visible = true

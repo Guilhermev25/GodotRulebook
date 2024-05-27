@@ -1,12 +1,12 @@
 [gd_scene load_steps=8 format=3 uid="uid://b5fvkpama31uo"]
 
-[ext_resource type="Script" path="res://addons/godot_rulebook/main_screen/components/foldable_rule.gd" id="1_2gclo"]
-[ext_resource type="Texture2D" uid="uid://fdiqucphdxpf" path="res://addons/godot_rulebook/main_screen/assets/icons/fold_down_arrow.svg" id="1_fvjg4"]
-[ext_resource type="Texture2D" uid="uid://d2bgfnbm5a34m" path="res://addons/godot_rulebook/main_screen/assets/icons/folded_right_arrow.svg" id="2_m5an4"]
-[ext_resource type="Texture2D" uid="uid://j1jqtw7mp57u" path="res://addons/godot_rulebook/main_screen/assets/icons/remove.svg" id="4_w74ny"]
-[ext_resource type="Texture2D" uid="uid://cuwnd5nylkfs3" path="res://addons/godot_rulebook/main_screen/assets/icons/file_browse.svg" id="5_8uenw"]
-[ext_resource type="Script" path="res://addons/godot_rulebook/main_screen/components/resolution_path.gd" id="5_hj5dl"]
-[ext_resource type="Script" path="res://addons/godot_rulebook/main_screen/components/browse_button.gd" id="7_7sodo"]
+[ext_resource type="Script" path="res://addons/godot_rulebook/editor/components/foldable_rule.gd" id="1_2gclo"]
+[ext_resource type="Texture2D" uid="uid://fdiqucphdxpf" path="res://addons/godot_rulebook/editor/assets/icons/fold_down_arrow.svg" id="1_fvjg4"]
+[ext_resource type="Texture2D" uid="uid://d2bgfnbm5a34m" path="res://addons/godot_rulebook/editor/assets/icons/folded_right_arrow.svg" id="2_m5an4"]
+[ext_resource type="Texture2D" uid="uid://j1jqtw7mp57u" path="res://addons/godot_rulebook/editor/assets/icons/remove.svg" id="4_w74ny"]
+[ext_resource type="Texture2D" uid="uid://cuwnd5nylkfs3" path="res://addons/godot_rulebook/editor/assets/icons/file_browse.svg" id="5_8uenw"]
+[ext_resource type="Script" path="res://addons/godot_rulebook/editor/components/resolution_path.gd" id="5_hj5dl"]
+[ext_resource type="Script" path="res://addons/godot_rulebook/editor/components/browse_button.gd" id="7_7sodo"]
 
 [node name="FoldableRule" type="PanelContainer"]
 anchors_preset = 14

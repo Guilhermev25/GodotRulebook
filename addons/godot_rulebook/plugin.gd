@@ -1,17 +1,22 @@
 @tool
 extends EditorPlugin
 
-const MAIN_PANEL := preload("res://addons/godot_rulebook/main_screen/main_panel.tscn")
-const ICON := preload("res://addons/godot_rulebook/main_screen/icon.svg")
+const MAIN_PANEL := preload("res://addons/godot_rulebook/editor/main_panel.tscn")
+const ICON := preload("res://addons/godot_rulebook/editor/assets/icons/icon.svg")
 const AUTOLOAD_NAME := "RulebooksManager"
 const SAVED_RULEBOOKS_PATH := "res://addons/godot_rulebook/saved_rulebooks/"
 
+var window : Window
 var main_panel_instance: Node
+var floating_window_mode: bool = false
+
 
 # Initialization of the plugin.
 func _enter_tree() -> void:
 	add_autoload_singleton(AUTOLOAD_NAME, "res://addons/godot_rulebook/src/manager.gd")
 	main_panel_instance = MAIN_PANEL.instantiate()
+	main_panel_instance.make_floating.connect(make_floating_window)
+	main_screen_changed.connect(check_window_focus)
 	# Add the main panel to the editor's main viewport.
 	EditorInterface.get_editor_main_screen().add_child(main_panel_instance)
 	load_rulebooks_from_disk()
@@ -51,7 +56,6 @@ func _make_visible(visible: bool) -> void:
 
 func _save_external_data() -> void:
 	for rulebook: Control in main_panel_instance.get_rulebooks():
-		print(rulebook.get_tree_string_pretty())
 		for child: Control in rulebook.get_children():
 			child.propagate_call("set_owner", [rulebook])
 			child.propagate_call("et_scene_file_path", [""])
@@ -70,3 +74,28 @@ func _get_plugin_name() -> String:
 
 func _get_plugin_icon() -> Texture2D:
 	return ICON
+
+
+func make_floating_window():
+	window = Window.new()
+	window.close_requested.connect(undo_floating_window)
+	EditorInterface.get_editor_main_screen().remove_child(main_panel_instance)
+	window.add_child(main_panel_instance)
+	window.set_size(main_panel_instance.get_size())
+	window.set_title("Rulebook Editor")
+	get_viewport().add_child(window)
+	window.set_initial_position(Window.WINDOW_INITIAL_POSITION_CENTER_MAIN_WINDOW_SCREEN)
+	floating_window_mode = true
+
+
+func undo_floating_window():
+	window.remove_child(main_panel_instance)
+	window.queue_free()
+	main_panel_instance.undo_floating_panel()
+	EditorInterface.get_editor_main_screen().add_child(main_panel_instance)
+	floating_window_mode = false
+
+
+func check_window_focus(screen_name: String):
+	if floating_window_mode and screen_name == _get_plugin_name():
+		window.grab_focus()

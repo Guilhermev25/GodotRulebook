@@ -1,7 +1,7 @@
 @tool
 extends PanelContainer
 
-const MONITORABLE_PREMISES := preload("res://addons/godot_rulebook/main_screen/components/monitorable_premises.tscn")
+const MONITORABLE_PREMISES := preload("res://addons/godot_rulebook/editor/components/monitorable_premises.tscn")
 
 
 func _on_fold_rule_button_toggled(toggled_on: bool):

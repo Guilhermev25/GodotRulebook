@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dui17054qnnx3"]
 
-[ext_resource type="Texture2D" uid="uid://j1jqtw7mp57u" path="res://addons/godot_rulebook/main_screen/assets/icons/remove.svg" id="1_irn13"]
-[ext_resource type="Script" path="res://addons/godot_rulebook/main_screen/components/premise.gd" id="1_ltc6w"]
+[ext_resource type="Texture2D" uid="uid://j1jqtw7mp57u" path="res://addons/godot_rulebook/editor/assets/icons/remove.svg" id="1_irn13"]
+[ext_resource type="Script" path="res://addons/godot_rulebook/editor/components/premise.gd" id="1_ltc6w"]
 
 [node name="Premise" type="HBoxContainer"]
 anchors_preset = 15
@@ -49,9 +49,11 @@ visible = false
 layout_mode = 2
 placeholder_text = "value"
 alignment = 1
+expand_to_text_length = true
 
 [node name="AttributeField" type="HBoxContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 

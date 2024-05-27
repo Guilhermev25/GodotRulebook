@@ -1,7 +1,7 @@
 @tool
 extends VBoxContainer
 
-const PREMISE = preload("res://addons/godot_rulebook/main_screen/components/premise.tscn")
+const PREMISE = preload("res://addons/godot_rulebook/editor/components/premise.tscn")
 
 var monitorable_type: String
 var monitorable_script: Script
