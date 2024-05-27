@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://vwxwcpwamyof"]
+[gd_scene load_steps=3 format=3 uid="uid://vwxwcpwamyof"]
 
-[ext_resource type="PackedScene" uid="uid://b5fvkpama31uo" path="res://addons/godot_rulebook/main_screen/components/foldable_rule.tscn" id="1_wbah8"]
+[ext_resource type="Script" path="res://addons/godot_rulebook/main_screen/components/rulebook_tab.gd" id="1_dl8sj"]
+[ext_resource type="Texture2D" uid="uid://j1jqtw7mp57u" path="res://addons/godot_rulebook/main_screen/assets/icons/remove.svg" id="2_ov31x"]
 
 [node name="RulebookTab" type="PanelContainer"]
 anchors_preset = 15
@@ -10,6 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_dl8sj")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 2
@@ -25,17 +27,20 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="RulebookName" type="LineEdit" parent="ScrollContainer/VBoxContainer/NameMargin"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/NameMargin"]
 layout_mode = 2
+
+[node name="RulebookName" type="LineEdit" parent="ScrollContainer/VBoxContainer/NameMargin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 32
-placeholder_text = "RulebookName"
+placeholder_text = "Rulebook name"
 flat = true
 
-[node name="Delete" type="Button" parent="ScrollContainer/VBoxContainer/NameMargin"]
+[node name="DeleteRulebook" type="Button" parent="ScrollContainer/VBoxContainer/NameMargin/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 8
 size_flags_vertical = 4
-text = "x"
+icon = ExtResource("2_ov31x")
 
 [node name="RulesMargin" type="MarginContainer" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -43,14 +48,17 @@ theme_override_constants/margin_left = 20
 theme_override_constants/margin_right = 20
 
 [node name="Rules" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/RulesMargin"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 15
 
-[node name="Rule" parent="ScrollContainer/VBoxContainer/RulesMargin/Rules" instance=ExtResource("1_wbah8")]
-layout_mode = 2
-
 [node name="AddRule" type="Button" parent="ScrollContainer/VBoxContainer/RulesMargin/Rules"]
+unique_name_in_owner = true
 layout_mode = 2
 text = " + Rule"
 alignment = 0
+
+[connection signal="text_changed" from="ScrollContainer/VBoxContainer/NameMargin/HBoxContainer/RulebookName" to="." method="_on_rulebook_name_text_changed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/NameMargin/HBoxContainer/DeleteRulebook" to="." method="_on_delete_rulebook_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/RulesMargin/Rules/AddRule" to="." method="_on_add_rule_pressed"]

@@ -2,17 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://daskkvw63u0bp"
-path="res://.godot/imported/icon.svg-0897187ea9fe317e01f69ee24664ca9d.ctex"
+uid="uid://fdiqucphdxpf"
+path="res://.godot/imported/fold_down_arrow.svg-b029b4f9890cb4a550ab298feb0c7d92.ctex"
 metadata={
-"has_editor_variant": true,
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/godot_rulebook/main_screen/icon.svg"
-dest_files=["res://.godot/imported/icon.svg-0897187ea9fe317e01f69ee24664ca9d.ctex"]
+source_file="res://addons/godot_rulebook/main_screen/assets/icons/fold_down_arrow.svg"
+dest_files=["res://.godot/imported/fold_down_arrow.svg-b029b4f9890cb4a550ab298feb0c7d92.ctex"]
 
 [params]
 
@@ -34,5 +33,5 @@ process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
 svg/scale=1.0
-editor/scale_with_editor_scale=true
-editor/convert_colors_with_editor_theme=true
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

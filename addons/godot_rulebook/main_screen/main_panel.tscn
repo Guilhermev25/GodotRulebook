@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://ed2pq3t5d0ps"]
 
-[ext_resource type="Theme" uid="uid://cvvfj8ffpw3np" path="res://addons/godot_rulebook/main_screen/theme/theme.tres" id="1_rvap4"]
+[ext_resource type="Theme" uid="uid://cvvfj8ffpw3np" path="res://addons/godot_rulebook/main_screen/theme.tres" id="1_rvap4"]
 [ext_resource type="Script" path="res://addons/godot_rulebook/main_screen/main_panel.gd" id="2_iu0bq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_j8ebi"]

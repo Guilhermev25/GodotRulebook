@@ -1,50 +1,58 @@
-[gd_scene load_steps=2 format=3 uid="uid://bcu3ebetniqjy"]
+[gd_scene load_steps=3 format=3 uid="uid://bcu3ebetniqjy"]
 
-[ext_resource type="PackedScene" uid="uid://dui17054qnnx3" path="res://addons/godot_rulebook/main_screen/components/premise.tscn" id="1_8821n"]
+[ext_resource type="Texture2D" uid="uid://j1jqtw7mp57u" path="res://addons/godot_rulebook/main_screen/assets/icons/remove.svg" id="1_a6h74"]
+[ext_resource type="Script" path="res://addons/godot_rulebook/main_screen/components/monitorable_premises.gd" id="1_hfv23"]
 
-[node name="VBoxContainer" type="VBoxContainer"]
-anchors_preset = 15
+[node name="MonitorablePremises" type="VBoxContainer"]
+anchors_preset = 14
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.5
+offset_top = -72.0
+offset_bottom = 72.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_hfv23")
 
 [node name="MonitorablePremises" type="HBoxContainer" parent="."]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="MonitorableType" type="OptionButton" parent="MonitorablePremises"]
+unique_name_in_owner = true
 layout_mode = 2
 allow_reselect = true
+item_count = 2
+popup/item_0/text = "Enemy"
+popup/item_0/id = 0
+popup/item_1/text = "Weapon"
+popup/item_1/id = 1
 
 [node name="MonitorableId" type="LineEdit" parent="MonitorablePremises"]
 layout_mode = 2
 alignment = 1
+expand_to_text_length = true
 
 [node name="HSeparator" type="HSeparator" parent="MonitorablePremises"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Delete" type="Button" parent="MonitorablePremises"]
+[node name="DeleteMonitorable" type="Button" parent="MonitorablePremises"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "x"
+icon = ExtResource("1_a6h74")
 
 [node name="PremisesMargin" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 
 [node name="Premises" type="VBoxContainer" parent="PremisesMargin"]
-layout_mode = 2
-
-[node name="Premise" parent="PremisesMargin/Premises" instance=ExtResource("1_8821n")]
-layout_mode = 2
-
-[node name="Premise2" parent="PremisesMargin/Premises" instance=ExtResource("1_8821n")]
-auto_translate_mode = 1
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="AddPremise" type="Button" parent="PremisesMargin/Premises"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
@@ -52,3 +60,7 @@ text = "+ Premise"
 
 [node name="HSeparator" type="HSeparator" parent="."]
 layout_mode = 2
+
+[connection signal="item_selected" from="MonitorablePremises/MonitorableType" to="." method="_on_monitorable_type_item_selected"]
+[connection signal="pressed" from="MonitorablePremises/DeleteMonitorable" to="." method="_on_delete_monitorable_pressed"]
+[connection signal="pressed" from="PremisesMargin/Premises/AddPremise" to="." method="_on_add_premise_pressed"]

@@ -4,6 +4,8 @@ extends PanelContainer
 const RULEBOOK_TAB := preload("res://addons/godot_rulebook/main_screen/components/rulebook_tab.tscn")
 var suffix: int = 1
 
+@export var resource: Resource
+
 func get_rulebooks() -> Array[Control]:
 	var result: Array[Control]
 	for rulebook: Control in %TabContainer.get_children():
