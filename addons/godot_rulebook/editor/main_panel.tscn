@@ -40,7 +40,7 @@ size_flags_horizontal = 8
 icon = ExtResource("3_jw5o7")
 flat = true
 
-[node name="Title" type="Label" parent="VBoxContainer"]
+[node name="PluginName" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "GodotRulebook"

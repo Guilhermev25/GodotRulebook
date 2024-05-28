@@ -1,4 +1,5 @@
 @tool
+class_name EditorPremise
 extends HBoxContainer
 
 var monitorable_script: Script
@@ -6,7 +7,7 @@ var monitorable_script: Script
 
 func _ready():
 	%OperatorOption.clear()
-	for operator in RulePremise.OPERATOR_HINTS:
+	for operator in Premise.OPERATOR_HINTS:
 		%OperatorOption.add_item(operator)
 
 
