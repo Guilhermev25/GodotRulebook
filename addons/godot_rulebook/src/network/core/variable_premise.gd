@@ -1,12 +1,12 @@
 class_name VariablePremise
-extends RulePremise
+extends NetworkPremise
 
 signal update(instance: Monitorable)
 signal add(instance: Monitorable)
 signal remove(instance: Monitorable)
 
 
-func _property_changed(instance: Monitorable) -> void:
+func _attribute_changed(instance: Monitorable) -> void:
 	update.emit(instance)
 
 

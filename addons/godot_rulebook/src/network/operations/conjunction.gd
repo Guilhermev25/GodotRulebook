@@ -1,5 +1,5 @@
 class_name Conjunction
-extends Object
+extends Node
 
 signal forward_add(instance: Monitorable)
 signal forward_remove(instance: Monitorable)

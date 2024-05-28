@@ -1,5 +1,5 @@
 class_name Binding
-extends Object
+extends Node
 
 var local_memory: Array[Monitorable] 
 
