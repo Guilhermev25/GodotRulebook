@@ -1,8 +1,7 @@
 class_name NetworkBuilder
-extends Node
 
 
-func compile_rulebook(rulebook: Rulebook) -> CompiledRulebook:
+static func compile_rulebook(rulebook: Rulebook) -> CompiledRulebook:
 	var compiled_rulebook := CompiledRulebook.new()
 	for rule: Rule in rulebook.rules:
 		var network_rule: NetworkRule = build_network_rule(rule)
@@ -12,14 +11,14 @@ func compile_rulebook(rulebook: Rulebook) -> CompiledRulebook:
 	return compiled_rulebook
 
 
-func build_network_rule(rule: Rule) -> NetworkRule:
+static func build_network_rule(rule: Rule) -> NetworkRule:
 	var network_rule := NetworkRule.new()
 	network_rule.resolution = rule.resolution
 	network_rule.predicate = build_network_predicate(rule.predicate)
 	return network_rule
 
 
-func build_network_predicate(predicate: Predicate) -> NetworkPredicate:
+static func build_network_predicate(predicate: Predicate) -> NetworkPredicate:
 	var network_predicate := NetworkPredicate.new()
 	for key in predicate.monitorables_premisses:
 		var premises: Array[Premise] = predicate.monitorables_premisses[key]
@@ -30,7 +29,7 @@ func build_network_predicate(predicate: Predicate) -> NetworkPredicate:
 	return network_predicate
 
 
-func build_network_premise(premise: Premise) -> NetworkPremise:
+static func build_network_premise(premise: Premise) -> NetworkPremise:
 	var result: NetworkPremise
 	if premise.operand_type == Premise.OperandType.VARIABLE:
 		result = VariablePremise.new()
@@ -41,7 +40,7 @@ func build_network_premise(premise: Premise) -> NetworkPremise:
 	return result
 
 
-func premise_copy(origin: Premise, target: NetworkPremise) -> void:
+static func premise_copy(origin: Premise, target: NetworkPremise) -> void:
 	target.type = origin.type
 	target.attribute = origin.attribute
 	target.operator = origin.operator

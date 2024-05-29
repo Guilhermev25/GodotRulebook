@@ -1,9 +1,8 @@
 class_name CompiledRulebook
-extends Node
+extends Rulebook
 
 var premises: Dictionary # String: Array[RulePremise]
 var conflict_set: Array[NetworkRule]
-var rules: Array[NetworkRule]
 
 
 func add_monitorable_instance(instance: Monitorable) -> void:

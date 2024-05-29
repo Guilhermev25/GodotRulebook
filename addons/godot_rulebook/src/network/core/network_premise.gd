@@ -9,12 +9,6 @@ func connect_instance(instance: Monitorable) -> void:
 	_add_instance(instance)
 	instance.connect("deleted", _instance_deleted)
 
-
-func get_hash() -> void:
-	var hash_string := "type: %s %s" % [type, expression_string]
-	# NOTE: Remove hash() to avoid collisions?
-	return hash_string.hash()
-
 # ABSTRACT FUNCTION
 func _attribute_changed(instance: Monitorable) -> void:
 	push_error("NOT IMPLEMENTED ERROR: Premise._attribute_changed()")
@@ -26,5 +20,3 @@ func _add_instance(instance: Monitorable) -> void:
 # ABSTRACT FUNCTION
 func _instance_deleted(instance: Monitorable) -> void:
 	push_error("NOT IMPLEMENTED ERROR: Premise._instance_deleted()")
-
-
