@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://da1e00gk7127f"]
+[gd_scene load_steps=10 format=3 uid="uid://da1e00gk7127f"]
 
+[ext_resource type="Theme" uid="uid://cvvfj8ffpw3np" path="res://addons/godot_rulebook/editor/theme.tres" id="1_rnmyx"]
 [ext_resource type="Script" path="res://addons/godot_rulebook/editor/core/editor_rule.gd" id="1_tbsl0"]
 [ext_resource type="Texture2D" uid="uid://fdiqucphdxpf" path="res://addons/godot_rulebook/editor/assets/icons/fold_down_arrow.svg" id="2_d8iix"]
 [ext_resource type="Texture2D" uid="uid://d2bgfnbm5a34m" path="res://addons/godot_rulebook/editor/assets/icons/folded_right_arrow.svg" id="3_5ps6m"]
@@ -18,6 +19,7 @@ offset_top = -15.5
 offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_rnmyx")
 script = ExtResource("1_tbsl0")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -37,6 +39,21 @@ flat = true
 [node name="RuleName" parent="VBoxContainer/Header" instance=ExtResource("4_uwxul")]
 layout_mode = 2
 placeholder_name = "Rule Name"
+
+[node name="RuleType" type="ItemList" parent="VBoxContainer/Header"]
+custom_minimum_size = Vector2(406, 0)
+layout_mode = 2
+allow_reselect = true
+allow_search = false
+auto_height = true
+item_count = 3
+max_columns = 3
+same_column_width = true
+fixed_column_width = 80
+icon_mode = 0
+item_0/text = "Amend"
+item_1/text = "Resolve"
+item_2/text = "Chain"
 
 [node name="DeleteRule" type="Button" parent="VBoxContainer/Header"]
 layout_mode = 2

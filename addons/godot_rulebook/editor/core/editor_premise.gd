@@ -39,26 +39,18 @@ func is_valid_attribute(attr: String) -> bool:
 	return result
 
 
-func _on_delete_premise_pressed():
-	queue_free()
-
-
-func _on_constant_pressed():
-	change_active_field("Constant")
-
-
-func _on_attribute_pressed():
-	change_active_field("Attribute")
-
-
-func _on_variable_pressed():
-	change_active_field("Variable")
+func _on_operand_type_selected(index: int) -> void:
+	var new_type: String = %OperandTypeOptions.get_item_text(index)
+	change_active_field(new_type)
 
 
 func change_active_field(new_field: String):
 	for field: Control in [%ConstantField, %AttributeField, %VariableField]:
 		field.visible = false
-	for check_box: CheckBox in %OperandTypeOptions.get_children():
-		if check_box.name != new_field:
-			check_box.button_pressed = false
 	get_node("%" + new_field + "Field").visible = true
+
+
+func _on_delete_premise_pressed():
+	queue_free()
+
+

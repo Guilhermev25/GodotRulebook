@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dui17054qnnx3"]
+[gd_scene load_steps=4 format=3 uid="uid://dui17054qnnx3"]
 
 [ext_resource type="Script" path="res://addons/godot_rulebook/editor/core/editor_premise.gd" id="1_1itnc"]
-[ext_resource type="Texture2D" uid="uid://j1jqtw7mp57u" path="res://addons/godot_rulebook/editor/assets/icons/remove.svg" id="2_lq5cg"]
+[ext_resource type="Theme" uid="uid://cvvfj8ffpw3np" path="res://addons/godot_rulebook/editor/theme.tres" id="1_ikrcw"]
+[ext_resource type="Texture2D" uid="uid://b1v7jayblixhl" path="res://addons/godot_rulebook/editor/assets/icons/remove.svg" id="2_lq5cg"]
 
 [node name="EditorPremise" type="HBoxContainer"]
 anchors_preset = 15
@@ -12,6 +13,7 @@ offset_bottom = -308.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 4
+theme = ExtResource("1_ikrcw")
 theme_override_constants/separation = 10
 script = ExtResource("1_1itnc")
 
@@ -74,37 +76,26 @@ placeholder_text = " variable name "
 alignment = 1
 expand_to_text_length = true
 
-[node name="OperandTypeOptions" type="HBoxContainer" parent="."]
+[node name="OperandTypeOptions" type="ItemList" parent="."]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(372, 0)
 layout_mode = 2
 size_flags_horizontal = 10
-theme_override_constants/separation = 10
-
-[node name="Constant" type="CheckBox" parent="OperandTypeOptions"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Constant"
-flat = true
-
-[node name="Attribute" type="CheckBox" parent="OperandTypeOptions"]
-auto_translate_mode = 1
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Attribute"
-flat = true
-
-[node name="Variable" type="CheckBox" parent="OperandTypeOptions"]
-auto_translate_mode = 1
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Variable"
-flat = true
+allow_reselect = true
+allow_search = false
+auto_height = true
+item_count = 3
+max_columns = 3
+same_column_width = true
+icon_mode = 0
+item_0/text = "Constant"
+item_1/text = "Attribute"
+item_2/text = "Variable"
 
 [node name="DeletePremise" type="Button" parent="."]
 layout_mode = 2
+size_flags_horizontal = 8
 icon = ExtResource("2_lq5cg")
 
-[connection signal="pressed" from="OperandTypeOptions/Constant" to="." method="_on_constant_pressed"]
-[connection signal="pressed" from="OperandTypeOptions/Attribute" to="." method="_on_attribute_pressed"]
-[connection signal="pressed" from="OperandTypeOptions/Variable" to="." method="_on_variable_pressed"]
+[connection signal="item_selected" from="OperandTypeOptions" to="." method="_on_operand_type_selected"]
 [connection signal="pressed" from="DeletePremise" to="." method="_on_delete_premise_pressed"]
