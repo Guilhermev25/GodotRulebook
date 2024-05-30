@@ -1,10 +1,11 @@
+@tool
 class_name RulebookEditorIO
 
 static var SAVED_RULEBOOKS_PATH := "res://addons/godot_rulebook/editor/saved_rulebooks/"
-static var EDITOR_RULEBOOK := load("res://addons/godot_rulebook/editor/components/editor_rulebook.tscn")
-static var EDITOR_RULE := load("res://addons/godot_rulebook/editor/components/editor_rule.tscn")
-static var EDITOR_MONITORABLE := load("res://addons/godot_rulebook/editor/components/editor_monitorable.tscn")
-static var EDITOR_PREMISE := load("res://addons/godot_rulebook/editor/components/editor_premise.tscn")
+static var EDITOR_RULEBOOK := load("res://addons/godot_rulebook/editor/core/editor_rulebook.tscn")
+static var EDITOR_RULE := load("res://addons/godot_rulebook/editor/core/editor_rule.tscn")
+static var EDITOR_MONITORABLE := load("res://addons/godot_rulebook/editor/core/editor_monitorable.tscn")
+static var EDITOR_PREMISE := load("res://addons/godot_rulebook/editor/core/editor_premise.tscn")
 
 
 static func save_on_disk(rulebook: Control) -> void:

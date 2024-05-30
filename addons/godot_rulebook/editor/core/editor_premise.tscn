@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dui17054qnnx3"]
 
-[ext_resource type="Script" path="res://addons/godot_rulebook/editor/components/editor_premise.gd" id="1_1itnc"]
+[ext_resource type="Script" path="res://addons/godot_rulebook/editor/core/editor_premise.gd" id="1_1itnc"]
 [ext_resource type="Texture2D" uid="uid://j1jqtw7mp57u" path="res://addons/godot_rulebook/editor/assets/icons/remove.svg" id="2_lq5cg"]
 
 [node name="EditorPremise" type="HBoxContainer"]

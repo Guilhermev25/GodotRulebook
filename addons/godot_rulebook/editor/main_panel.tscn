@@ -9,7 +9,7 @@ bg_color = Color(0.164706, 0.168627, 0.180392, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_j8ebi"]
 line_spacing = 0.0
-font_size = 32
+font_size = 48
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uh286"]
 bg_color = Color(0.164706, 0.168627, 0.180392, 1)

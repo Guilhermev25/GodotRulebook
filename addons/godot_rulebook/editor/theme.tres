@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://cvvfj8ffpw3np"]
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://cvvfj8ffpw3np"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3xkcr"]
 content_margin_left = 6.0
@@ -13,13 +13,6 @@ content_margin_top = 4.0
 content_margin_right = 6.0
 content_margin_bottom = 4.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4kt0s"]
-content_margin_left = 8.0
-content_margin_top = 4.0
-content_margin_right = 8.0
-content_margin_bottom = 4.0
-bg_color = Color(0.117647, 0.117647, 0.121569, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hhr4h"]
 content_margin_left = 6.0
 content_margin_top = 4.0
@@ -32,5 +25,4 @@ Button/styles/normal = SubResource("StyleBoxFlat_3xkcr")
 CheckBox/styles/focus = SubResource("StyleBoxEmpty_tfrat")
 CheckBox/styles/hover = SubResource("StyleBoxEmpty_tfrat")
 CheckBox/styles/normal = SubResource("StyleBoxEmpty_tfrat")
-LineEdit/styles/normal = SubResource("StyleBoxFlat_4kt0s")
 OptionButton/styles/normal = SubResource("StyleBoxFlat_hhr4h")

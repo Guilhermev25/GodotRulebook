@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bcu3ebetniqjy"]
 
-[ext_resource type="Script" path="res://addons/godot_rulebook/editor/components/editor_monitorable.gd" id="1_70nk4"]
-[ext_resource type="Texture2D" uid="uid://j1jqtw7mp57u" path="res://addons/godot_rulebook/editor/assets/icons/remove.svg" id="2_adx5x"]
+[ext_resource type="Script" path="res://addons/godot_rulebook/editor/core/editor_monitorable.gd" id="1_70nk4"]
+[ext_resource type="Texture2D" uid="uid://b1v7jayblixhl" path="res://addons/godot_rulebook/editor/assets/icons/remove.svg" id="2_adx5x"]
 
 [node name="EditorMonitorable" type="VBoxContainer"]
 anchors_preset = 14

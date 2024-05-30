@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://vwxwcpwamyof"]
+[gd_scene load_steps=5 format=3 uid="uid://vwxwcpwamyof"]
 
-[ext_resource type="Script" path="res://addons/godot_rulebook/editor/components/editor_rulebook.gd" id="1_iqy4v"]
-[ext_resource type="Texture2D" uid="uid://j1jqtw7mp57u" path="res://addons/godot_rulebook/editor/assets/icons/remove.svg" id="2_i8s3f"]
+[ext_resource type="Script" path="res://addons/godot_rulebook/editor/core/editor_rulebook.gd" id="1_iqy4v"]
+[ext_resource type="Texture2D" uid="uid://b1v7jayblixhl" path="res://addons/godot_rulebook/editor/assets/icons/remove.svg" id="2_i8s3f"]
+[ext_resource type="PackedScene" uid="uid://c8hvagjekmndj" path="res://addons/godot_rulebook/editor/other/editable_name.tscn" id="2_nr8vm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_y5cf4"]
+font_size = 32
 
 [node name="EditorRulebook" type="PanelContainer"]
 anchors_preset = 15
@@ -23,19 +27,17 @@ size_flags_horizontal = 3
 [node name="HeaderMargin" type="MarginContainer" parent="ScrollContainer/Contents"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
+theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
 [node name="Header" type="HBoxContainer" parent="ScrollContainer/Contents/HeaderMargin"]
 layout_mode = 2
 
-[node name="RulebookName" type="LineEdit" parent="ScrollContainer/Contents/HeaderMargin/Header"]
+[node name="RulebookName" parent="ScrollContainer/Contents/HeaderMargin/Header" instance=ExtResource("2_nr8vm")]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 32
-placeholder_text = "Rulebook name"
-flat = true
+placeholder_name = "Rulebook Name"
+label_settings = SubResource("LabelSettings_y5cf4")
 
 [node name="DeleteRulebook" type="Button" parent="ScrollContainer/Contents/HeaderMargin/Header"]
 layout_mode = 2
@@ -59,6 +61,6 @@ layout_mode = 2
 text = " + Rule"
 alignment = 0
 
-[connection signal="text_changed" from="ScrollContainer/Contents/HeaderMargin/Header/RulebookName" to="." method="_on_rulebook_name_text_changed"]
+[connection signal="name_changed" from="ScrollContainer/Contents/HeaderMargin/Header/RulebookName" to="." method="_on_rulebook_name_text_changed"]
 [connection signal="pressed" from="ScrollContainer/Contents/HeaderMargin/Header/DeleteRulebook" to="." method="_on_delete_rulebook_pressed"]
 [connection signal="pressed" from="ScrollContainer/Contents/RulesMargin/Rules/AddRule" to="." method="_on_add_rule_pressed"]
