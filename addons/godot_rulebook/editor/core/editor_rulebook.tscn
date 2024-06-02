@@ -35,8 +35,9 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 
 [node name="RulebookName" parent="ScrollContainer/Contents/HeaderMargin/Header" instance=ExtResource("2_nr8vm")]
+unique_name_in_owner = true
 layout_mode = 2
-placeholder_name = "Rulebook Name"
+editable_name = "Rulebook name"
 label_settings = SubResource("LabelSettings_y5cf4")
 
 [node name="DeleteRulebook" type="Button" parent="ScrollContainer/Contents/HeaderMargin/Header"]

@@ -19,7 +19,7 @@ func add_rulebook(rulebook: Control, custom_position: int = 0) -> void:
 
 
 func create_rulebook() -> void:
-	var new_rulebook = RulebookEditorIO.EDITOR_RULEBOOK.instantiate()
+	var new_rulebook: EditorRulebook = RulebookEditorIO.EDITOR_RULEBOOK.instantiate()
 	new_rulebook.name = "Rulebook " + str(suffix)
 	suffix += 1
 	add_rulebook(new_rulebook, %"+ Rulebook".get_index())

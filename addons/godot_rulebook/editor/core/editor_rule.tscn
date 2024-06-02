@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cuwnd5nylkfs3" path="res://addons/godot_rulebook/editor/assets/icons/file_browse.svg" id="6_q10ke"]
 [ext_resource type="Script" path="res://addons/godot_rulebook/editor/other/browse_button.gd" id="7_5w8ul"]
 
-[node name="EditorRule" type="PanelContainer"]
+[node name="Rule Name" type="PanelContainer"]
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
@@ -37,11 +37,13 @@ button_pressed = true
 flat = true
 
 [node name="RuleName" parent="VBoxContainer/Header" instance=ExtResource("4_uwxul")]
+unique_name_in_owner = true
 layout_mode = 2
-placeholder_name = "Rule Name"
+editable_name = "Rule name"
 
-[node name="RuleType" type="ItemList" parent="VBoxContainer/Header"]
-custom_minimum_size = Vector2(406, 0)
+[node name="RuleTypeList" type="ItemList" parent="VBoxContainer/Header"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(410, 0)
 layout_mode = 2
 allow_reselect = true
 allow_search = false
@@ -51,9 +53,9 @@ max_columns = 3
 same_column_width = true
 fixed_column_width = 80
 icon_mode = 0
-item_0/text = "Amend"
-item_1/text = "Resolve"
-item_2/text = "Chain"
+item_0/text = "AMEND"
+item_1/text = "RESOLVE"
+item_2/text = "CHAIN"
 
 [node name="DeleteRule" type="Button" parent="VBoxContainer/Header"]
 layout_mode = 2
@@ -72,28 +74,28 @@ layout_mode = 2
 layout_mode = 2
 text = "IF:"
 
-[node name="MonitorablesMargin" type="MarginContainer" parent="VBoxContainer/ContentsMargin/Contents"]
+[node name="PredicatesMargin" type="MarginContainer" parent="VBoxContainer/ContentsMargin/Contents"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 20
 
-[node name="Monitorables" type="VBoxContainer" parent="VBoxContainer/ContentsMargin/Contents/MonitorablesMargin"]
+[node name="Predicates" type="VBoxContainer" parent="VBoxContainer/ContentsMargin/Contents/PredicatesMargin"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="AddMonitorableSection" type="VBoxContainer" parent="VBoxContainer/ContentsMargin/Contents/MonitorablesMargin/Monitorables"]
+[node name="AddPredicateSection" type="VBoxContainer" parent="VBoxContainer/ContentsMargin/Contents/PredicatesMargin/Predicates"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ContentsMargin/Contents/MonitorablesMargin/Monitorables/AddMonitorableSection"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ContentsMargin/Contents/PredicatesMargin/Predicates/AddPredicateSection"]
 layout_mode = 2
 
-[node name="AddMonitorable" type="Button" parent="VBoxContainer/ContentsMargin/Contents/MonitorablesMargin/Monitorables/AddMonitorableSection/HBoxContainer"]
+[node name="AddPredicate" type="Button" parent="VBoxContainer/ContentsMargin/Contents/PredicatesMargin/Predicates/AddPredicateSection/HBoxContainer"]
 layout_mode = 2
 text = "+ Monitorable"
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/ContentsMargin/Contents/MonitorablesMargin/Monitorables/AddMonitorableSection/HBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/ContentsMargin/Contents/PredicatesMargin/Predicates/AddPredicateSection/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -111,6 +113,7 @@ theme_override_constants/margin_right = 40
 layout_mode = 2
 
 [node name="ResolutionPath" type="LineEdit" parent="VBoxContainer/ContentsMargin/Contents/ResolutionMargin/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "*.gd"
@@ -132,7 +135,7 @@ filters = PackedStringArray("*.gd")
 
 [connection signal="toggled" from="VBoxContainer/Header/FoldButton" to="." method="_on_fold_rule_button_toggled"]
 [connection signal="pressed" from="VBoxContainer/Header/DeleteRule" to="." method="_on_delete_rule_pressed"]
-[connection signal="pressed" from="VBoxContainer/ContentsMargin/Contents/MonitorablesMargin/Monitorables/AddMonitorableSection/HBoxContainer/AddMonitorable" to="." method="_on_add_monitorable_pressed"]
+[connection signal="pressed" from="VBoxContainer/ContentsMargin/Contents/PredicatesMargin/Predicates/AddPredicateSection/HBoxContainer/AddPredicate" to="." method="_on_add_predicate_pressed"]
 [connection signal="text_submitted" from="VBoxContainer/ContentsMargin/Contents/ResolutionMargin/HBoxContainer/ResolutionPath" to="VBoxContainer/ContentsMargin/Contents/ResolutionMargin/HBoxContainer/ResolutionPath" method="_on_text_submitted"]
 [connection signal="pressed" from="VBoxContainer/ContentsMargin/Contents/ResolutionMargin/HBoxContainer/BrowseButton" to="VBoxContainer/ContentsMargin/Contents/ResolutionMargin/HBoxContainer/BrowseButton" method="_on_pressed"]
 [connection signal="file_selected" from="VBoxContainer/ContentsMargin/Contents/ResolutionMargin/HBoxContainer/BrowseButton/FileDialog" to="VBoxContainer/ContentsMargin/Contents/ResolutionMargin/HBoxContainer/ResolutionPath" method="_on_file_dialog_file_selected"]

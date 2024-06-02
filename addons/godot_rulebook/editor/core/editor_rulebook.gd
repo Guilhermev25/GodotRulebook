@@ -3,15 +3,34 @@ class_name EditorRulebook
 extends PanelContainer
 
 
-func _on_rulebook_name_text_changed(new_text: String):
+func _on_rulebook_name_text_changed(new_text: String) -> void:
 	name = new_text
 
 
-func _on_add_rule_pressed():
-	var new_rule: Control = RulebookEditorIO.EDITOR_RULE.instantiate()
-	%Rules.add_child(new_rule)
-	%Rules.move_child(new_rule, %AddRule.get_index())
+func _on_add_rule_pressed() -> void:
+	add_rule(RulebookEditorIO.EDITOR_RULE.instantiate())
 
 
-func _on_delete_rulebook_pressed():
+func add_rule(rule: EditorRule) -> void:
+	%Rules.add_child(rule)
+	%Rules.move_child(rule, %AddRule.get_index())
+
+
+func get_rules() -> Array[EditorRule]:
+	var result: Array[EditorRule]
+	for child in %Rules.get_children():
+		if child is EditorRule:
+			result.append(child)
+	return result
+
+
+func _on_delete_rulebook_pressed() -> void:
 	queue_free()
+
+
+func save_info(rulebook: Rulebook) -> void:
+	rulebook.name = name
+
+
+func load_info(rulebook: Rulebook) -> void:
+	%RulebookName.rename(rulebook.name)

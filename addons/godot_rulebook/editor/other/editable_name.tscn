@@ -12,6 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 script = ExtResource("1_mb41k")
+editable_name = null
 
 [node name="LineEdit" type="LineEdit" parent="."]
 visible = false
