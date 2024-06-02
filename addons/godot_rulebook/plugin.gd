@@ -19,7 +19,7 @@ func _enter_tree() -> void:
 	main_screen_changed.connect(check_window_focus)
 	# Add the main panel to the editor's main viewport.
 	EditorInterface.get_editor_main_screen().add_child(main_panel_instance)
-	for rulebook: Control in RulebookEditorIO.load_all_from_disk():
+	for rulebook: EditorRulebook in RulebookEditorIO.load_all_from_disk():
 		main_panel_instance.add_rulebook(rulebook)
 	# Hide the main panel. Very much required.
 	_make_visible(false)

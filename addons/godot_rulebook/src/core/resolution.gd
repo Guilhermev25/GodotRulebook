@@ -2,11 +2,7 @@ class_name Resolution
 extends Script
 
 # Set by Rulebook before calling this resolution
-var match_result: Dictionary
-
-
-func _get(key: StringName):
-  return match_result.get(key)
+var _match: Dictionary
 
 # ABSTRACT FUNCTION
 func _resolve():
