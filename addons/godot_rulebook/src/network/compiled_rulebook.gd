@@ -1,7 +1,7 @@
 class_name CompiledRulebook
 extends Rulebook
 
-var premises: Dictionary # String: Array[RulePremise]
+var premises: Dictionary # String: Array[NetworkPremise]
 var conflict_set: Array[NetworkRule]
 
 
@@ -10,6 +10,11 @@ func add_monitorable_instance(instance: Monitorable) -> void:
 	var class_premises: Array[NetworkPremise] = premises[instance_class]
 	for premise in class_premises:
 		premise.connect_instance(instance)
+
+
+func add_premise(premise: NetworkPremise) -> void:
+	var class_premises: Array[NetworkPremise] = premises[premise.monitorable_type]
+	class_premises.append(premise)
 
 
 func remove_from_conflict_set(rule: NetworkRule) -> void:
