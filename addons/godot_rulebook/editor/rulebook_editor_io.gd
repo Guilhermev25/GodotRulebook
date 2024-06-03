@@ -9,6 +9,18 @@ static var EDITOR_PREMISE := load("res://addons/godot_rulebook/editor/core/edito
 
 
 static func save_on_disk(editor_rulebook: EditorRulebook) -> void:
+	var rulebook := save_rulebook(editor_rulebook)
+	var packed_scene = PackedScene.new()
+	var result = packed_scene.pack(rulebook)
+	if result == OK:
+		if not DirAccess.open(SAVED_RULEBOOKS_PATH):
+			DirAccess.make_dir_absolute(SAVED_RULEBOOKS_PATH)
+		var error = ResourceSaver.save(packed_scene, SAVED_RULEBOOKS_PATH + rulebook.name + ".tscn")
+		if error != OK:
+			push_error("An error occurred while saving the Rulebook to disk.")
+
+
+static func save_rulebook(editor_rulebook: EditorRulebook) -> Rulebook:
 	var rulebook := Rulebook.new()
 	editor_rulebook.save_info(rulebook)
 	for editor_rule: EditorRule in editor_rulebook.get_rules():
@@ -28,13 +40,7 @@ static func save_on_disk(editor_rulebook: EditorRulebook) -> void:
 				editor_premise.save_info(premise)
 				add_node(predicate, premise, rulebook)
 				predicate.premises.append(premise)
-	
-	var packed_scene = PackedScene.new()
-	var result = packed_scene.pack(rulebook)
-	if result == OK:
-		var error = ResourceSaver.save(packed_scene, SAVED_RULEBOOKS_PATH + rulebook.name + ".tscn")
-		if error != OK:
-			push_error("An error occurred while saving the Rulebook to disk.")
+	return rulebook
 
 
 static func add_node(parent: Node, child: Node, owner: Node) -> void:

@@ -66,7 +66,7 @@ func _on_delete_monitorable_pressed():
 
 func save_info(predicate: Predicate):
 	predicate.monitorable_type = monitorable_type
-	predicate.monitorable_var = %MonitorableIdentifier.text
+	predicate.monitorable_id = %MonitorableIdentifier.text
 
 
 func load_info(predicate: Predicate):
@@ -78,4 +78,4 @@ func load_info(predicate: Predicate):
 			%MonitorableTypeOptions.select(index)
 			%MonitorableTypeOptions.item_selected.emit(index)
 			break
-	%MonitorableIdentifier.set_text(predicate.monitorable_var)
+	%MonitorableIdentifier.set_text(predicate.monitorable_id)
