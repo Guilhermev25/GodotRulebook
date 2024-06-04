@@ -11,7 +11,7 @@ static func compile_rulebook(rulebook: Rulebook) -> CompiledRulebook:
 static func build_compiled_rulebook(rulebook: Rulebook) -> CompiledRulebook:
 	var compiled_rulebook := CompiledRulebook.new()
 	var all_premises: Dictionary # String: NetworkPremise
-	var context: Dictionary = { 
+	var context := { 
 		"all_premises": all_premises,
 		"compiled_rulebook": compiled_rulebook,
 	}
@@ -92,28 +92,42 @@ static func sort_premises(a: NetworkPremise, b: NetworkPremise) -> bool:
 
 
 static func connect_network(rulebook: CompiledRulebook) -> void:
-	var summed_conjunctions: Dictionary # String: Conjunction
+	var accum_conjunctions: Dictionary # String: Conjunction
 	for rule: NetworkRule in rulebook.rules:
+		var var_processing: VariableProcessing = rule.condition.variable_processing
+		
 		for predicate: NetworkPredicate in rule.condition.predicates:
-			var summed_hash := ""
+			var accum_hash := ""
 			var previous_conjunction: Conjunction = null
+			var eq_var_premises: Array[VariablePremise] = []
+			var ineq_var_premises: Array[VariablePremise] = []
+			
 			for premise: NetworkPremise in predicate.premises:
 				if premise is SimplePremise:
 					var conjunction := Conjunction.new()
-					conjunction.premise = premise
 					connect_conjunctons(previous_conjunction, conjunction)
-					summed_hash += premise.get_hash()
-					conjunction = summed_conjunctions.get_or_add(summed_hash, conjunction)
+					accum_hash += premise.get_hash()
+					conjunction = accum_conjunctions.get_or_add(accum_hash, conjunction)
 					connect_simple_premise(premise, conjunction)
 					previous_conjunction = conjunction
-				if premise is VariablePremise:
-					# TODO: Implement VariablePremise connection
-					pass
+				elif premise is VariablePremise:
+					if premise.operator == "==":
+						eq_var_premises.append(premise)
+					else:
+						ineq_var_premises.append(premise)
+			
+			var context := {
+				"eq_premises": eq_var_premises,
+				"ineq_premises": ineq_var_premises,
+				"last_conjunction": previous_conjunction
+			}
+			var_processing.connect_to_predicate(predicate, context)
 
 
-static func connect_simple_premise(premise: NetworkPremise, conjuntion: Conjunction) -> void:
-	premise.add.connect(conjuntion.add_to_local_memory)
-	premise.remove.connect(conjuntion.remove_from_local_memory)
+static func connect_simple_premise(premise: SimplePremise, conjunction: Conjunction) -> void:
+	conjunction.premise = premise
+	premise.add.connect(conjunction.add_to_local_memory)
+	premise.remove.connect(conjunction.remove_from_local_memory)
 
 
 static func connect_conjunctons(previous_conjunction: Conjunction, conjunction: Conjunction) -> void:

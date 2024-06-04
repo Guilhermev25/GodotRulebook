@@ -2,8 +2,8 @@ class_name VariablePremise
 extends NetworkPremise
 
 signal update(instance: Monitorable)
-signal add(instance: Monitorable)
-signal remove(instance: Monitorable)
+signal created(instance: Monitorable)
+signal deleted(instance: Monitorable)
 
 
 func _attribute_changed(instance: Monitorable) -> void:
@@ -11,8 +11,8 @@ func _attribute_changed(instance: Monitorable) -> void:
 
 
 func _add_instance(instance: Monitorable) -> void:
-	add.emit(instance)
+	created.emit(instance)
 
 
-func _instance_deleted(instance: Monitorable) -> void:
-	remove.emit(instance)
+func _delete_instance(instance: Monitorable) -> void:
+	deleted.emit(instance)
