@@ -1,7 +1,7 @@
 @tool
 class_name RulebookEditorIO
+extends RulebookIO
 
-static var SAVED_RULEBOOKS_PATH := "res://addons/godot_rulebook/editor/saved_rulebooks/"
 static var EDITOR_RULEBOOK := load("res://addons/godot_rulebook/editor/core/editor_rulebook.tscn")
 static var EDITOR_RULE := load("res://addons/godot_rulebook/editor/core/editor_rule.tscn")
 static var EDITOR_PREDICATE := load("res://addons/godot_rulebook/editor/core/editor_predicate.tscn")
@@ -9,18 +9,11 @@ static var EDITOR_PREMISE := load("res://addons/godot_rulebook/editor/core/edito
 
 
 static func save_on_disk(editor_rulebook: EditorRulebook) -> void:
-	var rulebook := save_rulebook(editor_rulebook)
-	var packed_scene = PackedScene.new()
-	var result = packed_scene.pack(rulebook)
-	if result == OK:
-		if not DirAccess.open(SAVED_RULEBOOKS_PATH):
-			DirAccess.make_dir_absolute(SAVED_RULEBOOKS_PATH)
-		var error = ResourceSaver.save(packed_scene, SAVED_RULEBOOKS_PATH + rulebook.name + ".tscn")
-		if error != OK:
-			push_error("An error occurred while saving the Rulebook to disk.")
+	var rulebook := get_savable_rulebook(editor_rulebook)
+	save(rulebook)
 
 
-static func save_rulebook(editor_rulebook: EditorRulebook) -> Rulebook:
+static func get_savable_rulebook(editor_rulebook: EditorRulebook) -> Rulebook:
 	var rulebook := Rulebook.new()
 	editor_rulebook.save_info(rulebook)
 	for editor_rule: EditorRule in editor_rulebook.get_rules():
@@ -48,21 +41,12 @@ static func add_node(parent: Node, child: Node, owner: Node) -> void:
 	child.owner = owner
 
 
-static func load_all_from_disk() -> Array[EditorRulebook]:
-	var rulebooks: Array[EditorRulebook]
-	var dir := DirAccess.open(SAVED_RULEBOOKS_PATH)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			var scene: PackedScene = ResourceLoader.load(SAVED_RULEBOOKS_PATH + file_name)
-			var saved_rulebook: Rulebook = scene.instantiate()
-			if saved_rulebook:
-				rulebooks.append(build_editor_rulebook(saved_rulebook))
-			file_name = dir.get_next()
-	else:
-		print("An error occurred when trying to access the path.")
-	return rulebooks
+static func load_all_saved() -> Array[EditorRulebook]:
+	var result: Array[EditorRulebook]
+	for rulebook: Rulebook in load_all():
+		var editor_rulebook := build_editor_rulebook(rulebook)
+		result.append(editor_rulebook)
+	return result
 
 
 static func build_editor_rulebook(rulebook: Rulebook) -> EditorRulebook:

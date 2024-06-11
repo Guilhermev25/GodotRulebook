@@ -6,4 +6,4 @@ var _match: Dictionary
 
 # ABSTRACT FUNCTION
 func _resolve():
-  push_error("NOT IMPLEMENTED ERROR: RuleResolution._resolve()")
+  push_error("NOT IMPLEMENTED ERROR: Resolution._resolve()")

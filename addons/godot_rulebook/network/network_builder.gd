@@ -22,22 +22,18 @@ static func build_compiled_rulebook(rulebook: Rulebook) -> CompiledRulebook:
 
 
 static func build_network_rule(rule: Rule, context: Dictionary) -> NetworkRule:
-	var network_rule := NetworkRule.new()
-	network_rule.type = rule.type
-	network_rule.resolution_path = rule.resolution_path
-	var network_codition = NetworkCondition.new()
-	network_rule.codition = network_codition
+	var network_rule: NetworkRule = NetworkRule.new()
+	rule_copy(rule, network_rule)
 	for predicate: Predicate in rule.condition.predicates:
-		context["network_codition"] = network_codition
+		context["network_codition"] = network_rule.condition
 		var network_predicate := build_network_predicate(predicate, context)
-		network_rule.codition.add_predicate(network_predicate)
+		network_rule.condition.predicates.append(network_predicate)
 	return network_rule
 
 
 static func build_network_predicate(predicate: Predicate, context: Dictionary) -> NetworkPredicate:
-	var network_predicate := NetworkPredicate.new()
-	network_predicate.monitorable_type = predicate.monitorable_type
-	network_predicate.monitorable_id = predicate.monitorable_id
+	var network_predicate: NetworkPredicate = NetworkPredicate.new()
+	predicate_copy(predicate, network_predicate)
 	for premise: Premise in predicate.premises:
 		var network_premise := build_network_premise(premise, context)
 		network_predicate.premises.append(network_premise)
@@ -82,6 +78,16 @@ static func premise_copy(origin: Premise, target: NetworkPremise) -> void:
 	target.expression = origin.expression
 
 
+static func rule_copy(origin: Rule, target: NetworkRule) -> void:
+	target.type = origin.type
+	target.resolution_path = origin.resolution_path
+
+
+static func predicate_copy(origin: Predicate, target: NetworkPredicate) -> void:
+	target.monitorable_type = origin.monitorable_type
+	target.monitorable_id = origin.monitorable_id
+
+
 static func sort_premises(a: NetworkPremise, b: NetworkPremise) -> bool:
 	if a is SimplePremise and b is SimplePremise:
 		return a.get_hash() < b.get_hash()
@@ -99,8 +105,7 @@ static func connect_network(rulebook: CompiledRulebook) -> void:
 		for predicate: NetworkPredicate in rule.condition.predicates:
 			var accum_hash := ""
 			var previous_conjunction: Conjunction = null
-			var eq_var_premises: Array[VariablePremise] = []
-			var ineq_var_premises: Array[VariablePremise] = []
+			var var_premises: Array[VariablePremise] = []
 			
 			for premise: NetworkPremise in predicate.premises:
 				if premise is SimplePremise:
@@ -111,17 +116,11 @@ static func connect_network(rulebook: CompiledRulebook) -> void:
 					connect_simple_premise(premise, conjunction)
 					previous_conjunction = conjunction
 				elif premise is VariablePremise:
-					if premise.operator == "==":
-						eq_var_premises.append(premise)
-					else:
-						ineq_var_premises.append(premise)
+					var_premises.append(premise)
 			
-			var context := {
-				"eq_premises": eq_var_premises,
-				"ineq_premises": ineq_var_premises,
-				"last_conjunction": previous_conjunction
-			}
-			var_processing.connect_to_predicate(predicate, context)
+			var_processing.add_predicate(predicate, var_premises, previous_conjunction)
+		
+		var_processing.build_csp_graph()
 
 
 static func connect_simple_premise(premise: SimplePremise, conjunction: Conjunction) -> void:
