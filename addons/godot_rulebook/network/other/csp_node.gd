@@ -3,9 +3,12 @@ extends Node
 
 signal added_to_domain(source: CSPNode, instance: Monitorable)
 signal removed_from_domain(source: CSPNode, instance: Monitorable)
-var variable: String
 var domain: Array[Monitorable]
+var id: int
 
+
+func _init(_id: int):
+	id = _id
 
 func add_to_domain(instance: Monitorable) -> void:
 	domain.append(instance)

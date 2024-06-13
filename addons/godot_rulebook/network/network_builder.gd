@@ -118,7 +118,7 @@ static func connect_network(rulebook: CompiledRulebook) -> void:
 				elif premise is VariablePremise:
 					var_premises.append(premise)
 			
-			var_processing.add_predicate(predicate, var_premises, previous_conjunction)
+			var_processing.create_node(var_premises, previous_conjunction)
 		
 		var_processing.build_csp_graph()
 

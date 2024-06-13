@@ -40,8 +40,11 @@ func on_rule_unsatisfied(rule: NetworkRule) -> void:
 	conflict_set[rule.type].erase(rule) 
 
 
-func enqueue_effect(effect: Effect):
-	effects_queue.push_back(effect)
+func enqueue_effect(effect: Effect, push_front: bool = false):
+	if push_front:
+		effects_queue.push_front(effect)
+	else:
+		effects_queue.push_back(effect)
 
 
 func dequeue_effect(effect: Effect):
@@ -49,9 +52,10 @@ func dequeue_effect(effect: Effect):
 
 
 func execute():
-	var effect: Effect = effects_queue.pop_front()
-	effect.start_monitoring(self)
-	for type in conflict_set:
-		for rule in conflict_set[type]:
-			rule.resolve()
-	effect.queue_free()
+	while not effects_queue.is_empty():
+		var effect: Effect = effects_queue.pop_front()
+		effect.start_monitoring(self)
+		for type in conflict_set:
+			for rule in conflict_set[type]:
+				rule.resolve()
+		effect.queue_free()

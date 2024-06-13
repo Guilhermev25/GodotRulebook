@@ -28,3 +28,4 @@ func resolve() -> void:
 	for solution in solutions:
 		resolution_script._match = solution
 		resolution_script._resolve()
+	solutions.clear()
