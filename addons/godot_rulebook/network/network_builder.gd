@@ -15,7 +15,7 @@ static func build_compiled_rulebook(rulebook: Rulebook) -> CompiledRulebook:
 		"all_premises": all_premises,
 		"compiled_rulebook": compiled_rulebook,
 	}
-	for rule: Rule in rulebook.rules:
+	for rule in rulebook.rules:
 		var network_rule := build_network_rule(rule, context)
 		compiled_rulebook.add_rule(network_rule)
 	return compiled_rulebook
@@ -24,7 +24,7 @@ static func build_compiled_rulebook(rulebook: Rulebook) -> CompiledRulebook:
 static func build_network_rule(rule: Rule, context: Dictionary) -> NetworkRule:
 	var network_rule: NetworkRule = NetworkRule.new()
 	rule_copy(rule, network_rule)
-	for predicate: Predicate in rule.condition.predicates:
+	for predicate in rule.condition.predicates:
 		context["network_codition"] = network_rule.condition
 		var network_predicate := build_network_predicate(predicate, context)
 		network_rule.condition.predicates.append(network_predicate)
@@ -34,7 +34,7 @@ static func build_network_rule(rule: Rule, context: Dictionary) -> NetworkRule:
 static func build_network_predicate(predicate: Predicate, context: Dictionary) -> NetworkPredicate:
 	var network_predicate: NetworkPredicate = NetworkPredicate.new()
 	predicate_copy(predicate, network_predicate)
-	for premise: Premise in predicate.premises:
+	for premise in predicate.premises:
 		var network_premise := build_network_premise(premise, context)
 		network_predicate.premises.append(network_premise)
 	network_predicate.premises.append(create_id_premise(predicate))
@@ -99,15 +99,15 @@ static func sort_premises(a: NetworkPremise, b: NetworkPremise) -> bool:
 
 static func connect_network(rulebook: CompiledRulebook) -> void:
 	var accum_conjunctions: Dictionary # String: Conjunction
-	for rule: NetworkRule in rulebook.rules:
+	for rule in rulebook.rules:
 		var var_processing: VariableProcessing = rule.condition.variable_processing
 		
-		for predicate: NetworkPredicate in rule.condition.predicates:
+		for predicate in rule.condition.predicates:
 			var accum_hash := ""
 			var previous_conjunction: Conjunction = null
 			var var_premises: Array[VariablePremise] = []
 			
-			for premise: NetworkPremise in predicate.premises:
+			for premise in predicate.premises:
 				if premise is SimplePremise:
 					var conjunction := Conjunction.new()
 					connect_conjunctons(previous_conjunction, conjunction)

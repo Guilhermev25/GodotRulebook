@@ -16,19 +16,19 @@ static func save_on_disk(editor_rulebook: EditorRulebook) -> void:
 static func get_savable_rulebook(editor_rulebook: EditorRulebook) -> Rulebook:
 	var rulebook := Rulebook.new()
 	editor_rulebook.save_info(rulebook)
-	for editor_rule: EditorRule in editor_rulebook.get_rules():
+	for editor_rule in editor_rulebook.get_rules():
 		var rule := Rule.new()
 		editor_rule.save_info(rule)
 		add_node(rulebook, rule, rulebook)
 		var condition = rule.condition
 		add_node(rule, condition, rulebook)
 		rulebook.rules.append(rule)
-		for editor_predicate: EditorPredicate in editor_rule.get_predicates():
+		for editor_predicate in editor_rule.get_predicates():
 			var predicate := Predicate.new()
 			editor_predicate.save_info(predicate)
 			add_node(condition, predicate, rulebook)
 			rule.condition.predicates.append(predicate)
-			for editor_premise: EditorPremise in editor_predicate.get_premises():
+			for editor_premise in editor_predicate.get_premises():
 				var premise := Premise.new()
 				editor_premise.save_info(premise)
 				add_node(predicate, premise, rulebook)
@@ -43,7 +43,7 @@ static func add_node(parent: Node, child: Node, owner: Node) -> void:
 
 static func load_all_saved() -> Array[EditorRulebook]:
 	var result: Array[EditorRulebook]
-	for rulebook: Rulebook in load_all():
+	for rulebook in load_all():
 		var editor_rulebook := build_editor_rulebook(rulebook)
 		result.append(editor_rulebook)
 	return result
@@ -52,11 +52,11 @@ static func load_all_saved() -> Array[EditorRulebook]:
 static func build_editor_rulebook(rulebook: Rulebook) -> EditorRulebook:
 	var editor_rulebook: EditorRulebook = EDITOR_RULEBOOK.instantiate()
 	editor_rulebook.load_info(rulebook)
-	for rule: Rule in rulebook.rules:
+	for rule in rulebook.rules:
 		var editor_rule: EditorRule = EDITOR_RULE.instantiate()
 		editor_rulebook.add_rule(editor_rule)
 		editor_rule.load_info(rule)
-		for predicate: Predicate in rule.condition.predicates:
+		for predicate in rule.condition.predicates:
 			var editor_predicate: EditorPredicate = EDITOR_PREDICATE.instantiate()
 			editor_rule.add_predicate(editor_predicate)
 			editor_predicate.load_info(predicate)

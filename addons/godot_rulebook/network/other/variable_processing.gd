@@ -6,8 +6,8 @@ signal invalidate_solution(solution: Dictionary)
 var condition: NetworkCondition
 var csp_nodes: Array[CSPNode]
 var solutions: Array[Dictionary] = []
-var partial_restrictions: Dictionary # String: Array[PartialRestriction]
-var restrictions: Dictionary # int: Dictionary[ int: Array[Restriction] ]
+var partial_constraints: Dictionary # String: Array[PartialConstraint]
+var constraints: Dictionary # int: Dictionary[ int: Array[Constraint] ]
 
 
 func _init(_condition: NetworkCondition) -> void:
@@ -20,9 +20,9 @@ func create_node(premises: Array[VariablePremise], conjunction: Conjunction) -> 
 		connect_conjunction(conjunction, node)
 	else:
 		connect_first_premise(premises[0], node)
-	for premise: NetworkPremise in premises:
+	for premise in premises:
 		connect_premise(premise, node)
-		add_partial_restriction(premise, node)
+		add_partial_constraint(premise, node)
 
 
 func new_node() -> CSPNode:
@@ -47,45 +47,50 @@ func connect_premise(premise: VariablePremise, node: CSPNode) -> void:
 	premise.update.connect(node.update_instance)
 
 
-func add_partial_restriction(premise: VariablePremise, node: CSPNode) -> void:
+func add_partial_constraint(premise: VariablePremise, node: CSPNode) -> void:
 	var variable: String = condition.get_premise_var(premise)
-	var partial_restriction := PartialRestriction.new(premise.operator, node.id, premise.attribute)
-	partial_restrictions[variable].append(partial_restriction)
+	var partial_constraint := PartialConstraint.new( node.id, premise.attribute, premise.operator)
+	partial_constraints[variable].append(partial_constraint)
 
 
 func build_csp_graph() -> void:
-	for key in partial_restrictions:
-		var array: Array = partial_restrictions[key]
-		for i in range(array.size()):
-			for j in range(i + 1 , array.size()):
-				var restriction := build_restriction(array[i], array[j])
-				if restriction != null:
-					add_restriction(restriction)
-	partial_restrictions.clear()
+	# Each list represents partial constraints on the same variable (of the 
+	# condition), which must be added together to form a complete constraint
+	for list: Array in partial_constraints.values():
+		for i in range(list.size()):
+			for j in range(i + 1 , list.size()):
+				var constraint := build_constraint(list[i], list[j])
+				if constraint != null:
+					add_constraint(constraint)
 
 
-func build_restriction(r: PartialRestriction, s: PartialRestriction) -> Restriction:
+func build_constraint(r: PartialConstraint, s: PartialConstraint) -> Constraint:
 	if r.operator != "==" and s.operator != "==":
 		return null
 		
 	var operator: String = r.operator if r.operator != "==" else s.operator
 	# [NodeID].attr [operator] [NodeID].attr
-	return Restriction.new(r.node, r.attribute, operator, s.node, s.attribute)
+	return Constraint.new(r.node, r.attribute, operator, s.node, s.attribute)
 
 
-func add_restriction(restriction: Restriction) -> void:
-	var left := restriction.left
-	var right := restriction.right
+func add_constraint(constraint: Constraint) -> void:
+	var left: int = constraint.left_node
+	var right: int = constraint.right_node
 	
-	if restrictions.has(left):
-		restrictions[left][right].append(restriction)
+	if constraints.has(left):
+		if constraints[left].has(right):
+			constraints[left][right].append(constraint)
+		else:
+			var shared_array := [constraint] 
+			constraints[left][right] = shared_array
+			constraints[right][left] = shared_array
 	else:
-		var array := [restriction]
-		restrictions[left] = { 
-			right: array 
+		var shared_array := [constraint]
+		constraints[left] = { 
+			right: shared_array 
 		}
-		restrictions[right] = { 
-			left: array 
+		constraints[right] = { 
+			left: shared_array 
 		}
 
 
@@ -97,11 +102,15 @@ func on_domain_expansion(node: CSPNode, added_instance: Monitorable) -> void:
 
 
 func on_domain_reduction(node: CSPNode, removed_instance: Monitorable) -> void:
+	var remove_indexes: Array[int] = []
 	for i in range(solutions.size()):
 		var solution: Dictionary = solutions[i]
 		if solution[node.variable] == removed_instance:
-			solutions.remove_at(i)
+			# It is not recommended to remove from the array during a loop
+			remove_indexes.append(i)
 			invalidate_solution.emit(solution)
+	for index in remove_indexes:
+		solutions.remove_at(index)
 
 
 func empty_domains() -> bool:
@@ -114,40 +123,89 @@ func empty_domains() -> bool:
 func find_solutions(source: CSPNode, instance: Monitorable) -> Array[Dictionary]:
 	if empty_domains():
 		return []
-	return []
+	var solutions: Array[Dictionary] = []
+	var assignment := { 
+		source.id: instance, 
+		}
+	backtrack(assignment, source, 0, solutions)
+	return solutions
 
 
-class PartialRestriction:
-	var operator: String
+func backtrack(assignment: Dictionary, source: CSPNode, index: int, solutions: Array[Dictionary]) -> void:
+	if index == csp_nodes.size():
+		solutions.append(extract_condition_solution(assignment))
+		return
+	
+	var node: CSPNode = csp_nodes[index]
+	if node == source:
+		backtrack(assignment, source, index + 1, solutions)
+	else:
+		for instance in node.domain:
+			assignment[node.id] = instance
+			if is_assignment_valid(assignment):
+				backtrack(assignment, source, index + 1, solutions)
+			assignment.erase(node.name)
+
+
+func is_assignment_valid(assignment: Dictionary) -> bool:
+	for node: int in assignment.keys():
+		for other_node: int in assignment.keys():
+			if node != other_node \
+			and constraints.has(node) \
+			and constraints[node].has(other_node):
+				for constraint: Constraint in constraints[node][other_node]:
+					var partial_assignment := { 
+						node: assignment[node], 
+						other_node: assignment[other_node] 
+					}
+					if not constraint.evaluate(partial_assignment):
+						return false
+	return true
+
+
+func extract_condition_solution(assignment: Dictionary) -> Dictionary:
+	var solution: Dictionary
+	for variable in partial_constraints.keys():
+		for partial_constraint: PartialConstraint in partial_constraints[variable]:
+			if partial_constraint.operator == "==":
+				var instance: Monitorable = assignment[partial_constraint.node]
+				var attribute: String = partial_constraint.attribute
+				solution[variable] = instance.get(attribute)
+				break
+	return solution
+
+
+class PartialConstraint:
 	var node: int
 	var attribute: String
+	var operator: String
 	
-	func _init(_operator: String, _node: int, _attribute: String) -> void:
+	func _init(_node: int, _attribute: String, _operator: String) -> void:
 		operator = _operator
 		node = _node
 		attribute = _attribute
 
 
-class Restriction:
+class Constraint:
 	var string: String
-	var left: int
-	var right: int
+	var left_node: int
+	var right_node: int
 	var expression := Expression.new()
 	
-	func _init(l_node: int, l_attr: String, operator: String, r_node: int, r_attr: String) -> void:
-		left = l_node
-		right = r_node
-		string = "%s.%s %s %s.%s" % [l_node, l_attr, operator, r_node, r_attr]
-		expression.parse(string, [str(l_node), str(r_node)])
+	func _init(left_id: int, l_attr: String, operator: String, right_id: int, r_attr: String) -> void:
+		left_node = left_id
+		right_node = right_id
+		string = "%s.%s %s %s.%s" % [left_id, l_attr, operator, right_id, r_attr]
+		expression.parse(string, [str(left_id), str(right_id)])
 	
 	func evaluate(instances: Dictionary) -> bool:
 		var l_instance: Monitorable
 		var r_instance: Monitorable
 		
 		for node in instances:
-			if left == node:
+			if left_node == node:
 				l_instance = instances[node]
-			elif right == node:
+			elif right_node == node:
 				r_instance = instances[node]
 		
 		return expression.execute([l_instance, r_instance])

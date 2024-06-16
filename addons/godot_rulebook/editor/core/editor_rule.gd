@@ -18,7 +18,7 @@ func update_rule_type_list() -> void:
 		%RuleTypeList.add_item(type)
 	
 	if selected_text != "":
-		for index: int in range(%RuleTypeList.item_count):
+		for index in range(%RuleTypeList.item_count):
 			if %RuleTypeList.get_item_text(index) == selected_text:
 				%RuleTypeList.select(index)
 				break

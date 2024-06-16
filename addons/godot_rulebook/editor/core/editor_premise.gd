@@ -15,11 +15,11 @@ func update_operator_options():
 	var selected_text: String = %OperatorOption.get_item_text(selected_idx) if selected_idx != -1 else ""
 	
 	%OperatorOption.clear()
-	for operator: String in Premise.OPERATOR_HINTS:
+	for operator in Premise.OPERATOR_HINTS:
 		%OperatorOption.add_item(operator)
 	
 	if selected_text != "":
-		for index: int in range(%OperatorOption.item_count):
+		for index in range(%OperatorOption.item_count):
 			if %OperatorOption.get_item_text(index) == selected_text:
 				%OperatorOption.select(index)
 				break
@@ -36,7 +36,7 @@ func update_operand_type_list():
 		%OperandTypeList.add_item(type)
 	
 	if selected_text != "":
-		for index: int in range(%OperandTypeList.item_count):
+		for index in range(%OperandTypeList.item_count):
 			if %OperandTypeList.get_item_text(index) == selected_text:
 				%OperandTypeList.select(index)
 				break
@@ -48,14 +48,14 @@ func set_monitorable_hints(script: Script) -> void:
 	%AttributeOption.clear()
 	%AttributeField.get_node("AttributeOption").clear()
 	if script:
-		for attribute: String in get_attribute_hints():
+		for attribute in get_attribute_hints():
 			%AttributeOption.add_item(attribute)
 			%AttributeField.get_node("AttributeOption").add_item(attribute)
 
 
 func get_attribute_hints() -> Array[String]:
 	var result: Array[String]
-	for property: Dictionary in monitorable_script.get_script_property_list():
+	for property in monitorable_script.get_script_property_list():
 		if is_valid_attribute(property["name"]):
 			result.append(property["name"])
 	return result
@@ -123,7 +123,7 @@ func load_info(premise: Premise):
 
 
 func get_idx_by_text(option_button: OptionButton, text: String) -> int:
-	for index: int in range(option_button.item_count):
+	for index in range(option_button.item_count):
 		if option_button.get_item_text(index) == text:
 			return index
 	return -1

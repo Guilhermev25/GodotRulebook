@@ -1,15 +1,16 @@
 @tool
+class_name RulebookMainPanel
 extends PanelContainer
 
 signal make_floating
 var suffix: int = 1
 
 
-func get_rulebooks() -> Array[Control]:
-	var result: Array[Control]
-	for rulebook: Control in %TabContainer.get_children():
-		if rulebook.name != "+ Rulebook":
-			result.append(rulebook)
+func get_rulebooks() -> Array[EditorRulebook]:
+	var result: Array[EditorRulebook]
+	for child in %TabContainer.get_children():
+		if child is EditorRulebook:
+			result.append(child)
 	return result
 
 

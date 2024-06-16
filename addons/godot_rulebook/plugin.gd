@@ -7,7 +7,7 @@ const AUTOLOAD_NAME := "RulebooksManager"
 
 
 var window : Window
-var main_panel_instance: Node
+var main_panel_instance: RulebookMainPanel
 var floating_window_mode: bool = false
 
 
@@ -19,7 +19,7 @@ func _enter_tree() -> void:
 	main_screen_changed.connect(check_window_focus)
 	# Add the main panel to the editor's main viewport.
 	EditorInterface.get_editor_main_screen().add_child(main_panel_instance)
-	for rulebook: EditorRulebook in RulebookEditorIO.load_all_saved():
+	for rulebook in RulebookEditorIO.load_all_saved():
 		main_panel_instance.add_rulebook(rulebook)
 	# Hide the main panel. Very much required.
 	_make_visible(false)
@@ -42,7 +42,7 @@ func _make_visible(visible: bool) -> void:
 
 
 func _save_external_data() -> void:
-	for rulebook: Control in main_panel_instance.get_rulebooks():
+	for rulebook in main_panel_instance.get_rulebooks():
 		RulebookEditorIO.save_on_disk(rulebook)
 
 

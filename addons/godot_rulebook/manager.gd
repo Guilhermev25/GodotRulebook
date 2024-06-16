@@ -7,7 +7,7 @@ var rulebooks: Dictionary # String: CompiledRulebook
 
 func _init() -> void:
 	if not Engine.is_editor_hint():
-		for rulebook: Rulebook in RulebookIO.load_all():
+		for rulebook in RulebookIO.load_all():
 			rulebooks[rulebook.name] = NetworkBuilder.compile_rulebook(rulebook)
 
 
@@ -20,10 +20,7 @@ func remove_hint(_name: String) -> void:
 
 
 func get_rulebook_hints() -> String:
-	var hints := ""
-	for key: String in rulebook_names:
-		hints += key + ","
-	return hints
+	return ",".join(rulebook_names)
 
 
 func get_rulebook(rulebook_name: String) -> CompiledRulebook:

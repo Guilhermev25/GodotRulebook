@@ -9,7 +9,6 @@ var effects_queue: Array[Effect]
 func _init():
 	for type in Rule.RuleType:
 		conflict_set[type] = []
-	print(conflict_set)
 
 
 func add_monitorable_instance(instance: Monitorable) -> void:
@@ -55,7 +54,7 @@ func execute():
 	while not effects_queue.is_empty():
 		var effect: Effect = effects_queue.pop_front()
 		effect.start_monitoring(self)
-		for type in conflict_set:
-			for rule in conflict_set[type]:
+		for type in conflict_set.keys():
+			for rule: NetworkRule in conflict_set[type]:
 				rule.resolve()
 		effect.queue_free()
