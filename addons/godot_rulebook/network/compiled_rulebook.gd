@@ -2,13 +2,8 @@ class_name CompiledRulebook
 extends Rulebook
 
 var premises: Dictionary # String: Array[NetworkPremise]
-var conflict_set: Dictionary # Rule.RuleType: Array[NetworkRule]
+var conflict_set := MinHeap.new(Rule.greater)
 var effects_queue: Array[Effect]
-
-
-func _init():
-	for type in Rule.RuleType:
-		conflict_set[type] = []
 
 
 func add_monitorable_instance(instance: Monitorable) -> void:
@@ -30,13 +25,11 @@ func add_rule(rule: NetworkRule) -> void:
 
 
 func on_rule_satisfied(rule: NetworkRule) -> void:
-	var rules: Array[NetworkRule] = conflict_set[rule.type]
-	rules.erase(rule)
-	rules.append(rule)
+	conflict_set.push(rule)
 
 
 func on_rule_unsatisfied(rule: NetworkRule) -> void:
-	conflict_set[rule.type].erase(rule) 
+	conflict_set.delete(rule)
 
 
 func enqueue_effect(effect: Effect, push_front: bool = false):
@@ -54,7 +47,7 @@ func execute():
 	while not effects_queue.is_empty():
 		var effect: Effect = effects_queue.pop_front()
 		effect.start_monitoring(self)
-		for type in conflict_set.keys():
-			for rule: NetworkRule in conflict_set[type]:
-				rule.resolve()
+		while not conflict_set.is_empty():
+			var rule: NetworkRule = conflict_set.pop()
+			rule.resolve()
 		effect.queue_free()
