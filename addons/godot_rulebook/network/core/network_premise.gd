@@ -3,11 +3,17 @@ extends Premise
 
 
 func connect_instance(instance: Monitorable) -> void:
-	instance.connect(attribute + "_changed", _attribute_changed)
+	connect_attr_signal(attribute, instance)
 	if operand_type == OperandType.ATTRIBUTE:
-		instance.connect(operand + "_changed", _attribute_changed)
+		connect_attr_signal(operand, instance)
 	_add_instance(instance)
-	instance.connect("deleted", _delete_instance)
+	instance.deleted.connect(_delete_instance)
+
+
+func connect_attr_signal(attribute: String, instance: Monitorable):
+	var signal_name := attribute + Monitorable.CHANGED_SUFFIX
+	if instance.has_signal(signal_name):
+		instance.connect(signal_name, _attribute_changed)
 
 # ABSTRACT FUNCTION
 func _attribute_changed(instance: Monitorable) -> void:

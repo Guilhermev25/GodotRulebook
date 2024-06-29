@@ -16,15 +16,29 @@ func update_monitorable_type_options():
 	
 	%MonitorableTypeOptions.clear()
 	for class_dict in ProjectSettings.get_global_class_list():
-		if class_dict["base"] == "Monitorable":
+		if inherits_monitorable(class_dict):
 			var option: String = class_dict["class"].trim_prefix("Monitorable")
 			%MonitorableTypeOptions.add_item(option)
+			var has_prefix: bool = class_dict["class"].begins_with("Monitorable")
+			%MonitorableTypeOptions.set_item_metadata(%MonitorableTypeOptions.item_count - 1, has_prefix)
+			
 	
 	if selected_text != "":
 		for index in range(%MonitorableTypeOptions.item_count):
 			if %MonitorableTypeOptions.get_item_text(index) == selected_text:
 				%MonitorableTypeOptions.select(index)
 				break
+
+
+func inherits_monitorable(class_dict: Dictionary) -> bool:
+	var base_class: String = class_dict["base"]
+	if base_class == "Monitorable":
+		return true
+	else:
+		for dict in ProjectSettings.get_global_class_list():
+			if dict["class"] == base_class:
+				return inherits_monitorable(dict)
+	return false
 
 
 func _on_add_premise_pressed():
@@ -38,7 +52,11 @@ func add_premise(premise: EditorPremise):
 
 
 func _on_monitorable_type_item_selected(index: int):
-	set_monitorable("Monitorable" + %MonitorableTypeOptions.get_item_text(index))
+	var monitorable := ""
+	if (%MonitorableTypeOptions as OptionButton).get_item_metadata(index):
+		monitorable += "Monitorable"
+	monitorable += %MonitorableTypeOptions.get_item_text(index)
+	set_monitorable(monitorable)
 
 
 func set_monitorable(_monitorable_type: String):
@@ -72,9 +90,8 @@ func save_info(predicate: Predicate):
 func load_info(predicate: Predicate):
 	update_monitorable_type_options()
 	for index in range(%MonitorableTypeOptions.item_count):
-		var type: String = "Monitorable" + %MonitorableTypeOptions.get_item_text(index)
-		if type == predicate.monitorable_type:
-			# item_selected signal is not emitted when select() is called. Godot bug?
+		var option: String = %MonitorableTypeOptions.get_item_text(index)
+		if option == predicate.monitorable_type.trim_prefix("Monitorable"):
 			%MonitorableTypeOptions.select(index)
 			%MonitorableTypeOptions.item_selected.emit(index)
 			break

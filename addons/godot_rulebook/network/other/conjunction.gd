@@ -21,9 +21,11 @@ func remove_from_local_memory(instance: Monitorable) -> void:
 		forward_remove.emit(instance)
 
 
-func only_propagate_remove(instance: Monitorable) -> void:
-	forward_remove.emit(instance)
+func premise_add(instance: Monitorable) -> void:
+	if local_memory.has(instance):
+		forward_add.emit(instance)
 
 
-func only_propagate_add(instance: Monitorable) -> void:
-	forward_add.emit(instance)
+func premise_remove(instance: Monitorable) -> void:
+	if local_memory.has(instance):
+		forward_remove.emit(instance)

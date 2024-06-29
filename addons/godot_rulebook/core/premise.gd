@@ -19,16 +19,16 @@ func _ready() -> void:
 
 func parse_expression() -> void:
 	expression = Expression.new()
-	match operand_type:
-		OperandType.CONSTANT:
-			expression_string = "instance.%s %s %s" % [attribute, operator, operand]
-			expression.parse(expression_string, ["instance"])
-		OperandType.ATTRIBUTE:
-			expression_string = "instance.%s %s instance.%s" % [attribute, operator, operand]
-			expression.parse(expression_string, ["instance"])
-		OperandType.VARIABLE:
-			expression_string = "instance.%s %s var" % [attribute, operator]
-			expression.parse(expression_string, ["instance", "var"])
+	var error
+	
+	expression_string = "%s %s %s" % [attribute, operator, operand]
+	if operand_type == OperandType.VARIABLE:
+		error = expression.parse(expression_string, [operand])
+	else:
+		error = expression.parse(expression_string)
+	
+	if error != OK:
+		push_error(expression.get_error_text())
 
 
 func get_hash() -> String:

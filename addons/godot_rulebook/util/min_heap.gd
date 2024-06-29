@@ -29,6 +29,8 @@ func right_child(i: int):
 
 
 func swap(i: int, j: int) -> void:
+	if i == j: 
+		return
 	var i_element = heap[i]
 	var j_element = heap[j]
 	heap[i] = j_element
@@ -87,7 +89,10 @@ func pop() -> Variant:
 
 
 func delete(element) -> void:
-	var index: int = map[element]
+	var index: int = map.get(element, -1)
+	if index == -1:
+		return
 	swap(index, heap.size() - 1)
 	heap.pop_back()
+	map.erase(element)
 	sink(0)

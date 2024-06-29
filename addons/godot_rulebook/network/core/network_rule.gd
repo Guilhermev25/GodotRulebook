@@ -13,8 +13,9 @@ func _init() -> void:
 
 
 func on_add_solution(solution: Dictionary) -> void:
+	if solutions.is_empty():
+		satisfied.emit(self)
 	solutions.append(solution)
-	satisfied.emit(self)
 
 
 func on_remove_solution(solution: Dictionary) -> void:
@@ -23,9 +24,10 @@ func on_remove_solution(solution: Dictionary) -> void:
 		unsatisfied.emit(self)
 
 
-func resolve() -> void:
-	var resolution_script: Resolution = load(resolution_path).new()
+func resolve(rulebook: Rulebook) -> void:
+	var resolution = load(resolution_path).new()
 	for solution in solutions:
-		resolution_script._match = solution
-		resolution_script._resolve()
+		resolution.rule_match = solution
+		resolution.rulebook = rulebook
+		await resolution._resolve()
 	solutions.clear()
